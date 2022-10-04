@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from 'react'
 
-class Landing extends Component {
-  render() {
-    return <div>Landing</div>;
-  }
+function Landing() {
+  return (
+    <div>Landing</div>
+  )
 }
 
-export default Landing;
+export default Landing
