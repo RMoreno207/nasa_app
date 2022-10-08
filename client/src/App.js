@@ -10,17 +10,20 @@ import axios from 'axios';
 
 function App() {
   const [landings, setLandings] = useState([]);//Almacenar fetch de all landings
+  const [filter, setFilter] = useState("");//almacena el parametro para filtrar
 
   useEffect(() => {
     getLandings()
-  }, [])
+
+  }, [filter])
 
   const getLandings = async () => {
     try {
       //Hacer fetch al back
-      const { data } = await axios.get(`/api/astronomy/landings/`);
+      console.log(filter);
+      const { data } = await axios.get(`/api/astronomy/landings/${filter}`);
       setLandings(data);
-
+      console.log(data);
     } catch (error) {
       console.log(error)
     }
@@ -28,7 +31,9 @@ function App() {
 
   const data = {
     landings,
-    setLandings
+    setLandings,
+    filter,
+    setFilter
   };
 
 

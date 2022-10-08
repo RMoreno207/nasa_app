@@ -12,7 +12,6 @@ function Home() {
   const getApod = async () => {
     try {
       const { data } = await axios.get(url + apiKey);//fetch a API NASA para obtener el APOD
-      console.log(data);
       const dataFilter = {
         url: data.hdurl,
         title: data.title
@@ -26,7 +25,6 @@ function Home() {
   useEffect(() => {
     getApod()//Lanzamos la busqueda
   }, []);
-  console.log(apod);
   return (
     <div>
       <h1>This is the APOD</h1>

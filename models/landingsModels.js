@@ -26,7 +26,9 @@ const getLandingsMinimumMass = async (minMass) => {
 
 const getLandingByMass = async (mass) => {
     try {
+        console.log(mass);
         const getLandingByMass = await landingSchema.find({ mass: mass }, "name mass -_id");
+        console.log(getLandingByMass);
         return getLandingByMass;
     }
     catch (error) {

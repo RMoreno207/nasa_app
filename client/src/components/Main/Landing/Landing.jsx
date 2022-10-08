@@ -2,7 +2,6 @@ import React from 'react'
 import { useState, useEffect, useRef, useContext } from 'react';
 import { landingsContext } from '../../../context/landingsContext';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
-import axios from "axios";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { map } from 'leaflet';
@@ -13,7 +12,24 @@ import { Link } from 'react-router-dom';
 
 function Landing() {
   const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
+  const { landingsByMass, setLandingsByMass } = useContext(landingsContext);
+  const { landnigsByClass, setLandnigsByClass } = useContext(landingsContext);
+  const { filter, setFilter } = useContext(landingsContext);
+  console.log(landings);
+  const byMass = useRef();//useRef se usa como getElementById
 
+  //Filter mass
+  const handleMass = (e) => {
+    e.preventDefault();
+    const parameter = byMass.current.value;
+    setFilter(`mass/${parameter}`);
+  }
+
+  //Filter class
+  const handleClass = (e) => {
+    const parameter = e.target.value;
+    setFilter(`class/${parameter}`);
+  }
 
   var icon = new L.Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/2049/2049726.png',
@@ -21,11 +37,6 @@ function Landing() {
     iconAnchor: null
   });
   const map = { "width": "100%", "height": "50vh" };
-
-  const log = landings[0].geolocation.latitude;
-  if (log) {
-    console.log(log);
-  }
 
   return (<>
     <div>
@@ -44,41 +55,41 @@ function Landing() {
       <form >
         <div >
           <label htmlFor="searchMass">Search landing by mass</label>
-          <input type="text" name="searchMass" placeholder="landing mass" />
-          <button className="button1">Search landing</button>
+          <input type="text" name="byMass" ref={byMass} placeholder="landing mass" />
+          <button className="button1" onClick={handleMass}>Search landing</button>
         </div>
         <div >
           <label htmlFor="searchClass">Search landing by class</label>
-          <input type="text" name="searchClass" placeholder="landing class" />
-          <button className="button1">Search landing</button>
+          <input type="text" name="byClass" onChange={handleClass} placeholder="landing class" />
+          <button className="button1" onClick={handleClass} > Search landing</button>
         </div>
       </form>
-    </div>
+    </div >
     <div>
       <MapContainer style={map} center={[51.505, -0.09]} zoom={2} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {landings.map((landing, i) => landing.geolocation && landing.reclat && landing.reclong ? (
+        {/* {landings.map((data, i) => data.geolocation && data.reclat && data.reclong ? (
 
           <Marker
             key={i}
-            position={[landing.geolocation.latitude, landing.geolocation.longitude]}
+            position={[data.geolocation.latitude, data.geolocation.longitude]}
             icon={icon}>
             <Popup>Detalles:
               <ul>
-                <li>Nombre: {landing.name}</li>
-                <li>ID: {landing.id}</li>
-                <li>Clase: {landing.recclass}</li>
-                <li>Masa: {landing.mass} kg</li>
-                <li>Fecha: {landing.year}</li>
-                <li>Latitud: {landing.reclat}</li>
-                <li>Longitud: {landing.reclong}</li>
+                <li>Nombre: {data.name}</li>
+                <li>ID: {data.id}</li>
+                <li>Clase: {data.recclass}</li>
+                <li>Masa: {data.mass} kg</li>
+                <li>Fecha: {data.year}</li>
+                <li>Latitud: {data.reclat}</li>
+                <li>Longitud: {data.reclong}</li>
               </ul>
             </Popup>
           </Marker>
-        ) : null)}
+        ) : null)} */}
 
 
 
