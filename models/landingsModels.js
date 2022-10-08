@@ -1,5 +1,6 @@
 const landingSchema = require('../schemas/landingsSchemas.js');
 
+
 const getAllLandings = async () => {
     try {
         const getAllLandings = await landingSchema.find({}, "-_id");
@@ -7,7 +8,7 @@ const getAllLandings = async () => {
     }
     catch (error) {
         console.log(`ERROR: ${error.stack}`)
-        res.status(404).json({ "message": "Landing not found" });
+        res.status(404).json({ "message": "Landings out" });
     }
 }
 

@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+const mongoose = require('../utils/dbMongo');
+
 
 const newLandingSchema = new mongoose.Schema({
     name: {

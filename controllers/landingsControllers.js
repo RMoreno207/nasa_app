@@ -2,11 +2,14 @@ const landingsModel = require('../models/landingsModels');
 
 //GET -----------------------------------------------------------------------
 const getLanding = async (req, res) => {
-    //Guardamos los parametros req
-    let minimumMass = req.query.minimumMass;
-    let minMass = parseInt(minimumMass);
+    //Guardamos los parametros req 
+    //para obtener nombre y masa de todos aquellos meteoritos cuya masa sea igual o superior a una masa (gr) dada (con query parameters)​
+    // Ejemplo: /astronomy/landings?minimum_mass=200000​
+    // let minimumMass = req.query.minimumMass;
+    // let minMass = parseInt(minimumMass);
+    let minMass = parseInt(req.query.minimumMass);
 
-    if (minMass) {
+    if (minMass) {// /landings?minimum_mass=200000
         try {
             let landingMinimumMass = await landingsModel.getLandingsMinimumMass(minMass);
             res.status(200).json(landingMinimumMass);
@@ -14,7 +17,7 @@ const getLanding = async (req, res) => {
             console.log(`ERROR: ${error.stack}`);
             res.status(404).json({ "message": "landing not found" });
         }
-    } else {
+    } else {// /landings
         const landings = await landingsModel.getAllLandings();
         console.log(landings);
         res.status(200).json(landings);
