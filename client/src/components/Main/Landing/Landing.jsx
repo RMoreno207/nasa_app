@@ -10,6 +10,9 @@ import { Link } from 'react-router-dom';
 
 
 function Landing() {
+
+
+
   var icon = new L.Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/2049/2049726.png',
     iconSize: [30, 30],
@@ -24,7 +27,7 @@ function Landing() {
   const getLandings = async () => {
     try {
       //Hacer fetch al back
-      const { data } = await axios.get(``);
+      const { data } = await axios.get(`/api/astronomy/landings/`);
       const newLanding = {
         name: data.name,
         id: data.id,
@@ -38,6 +41,7 @@ function Landing() {
         geolocation: data.geolocation,
       }
 
+      console.log(data);
     } catch (error) {
       console.log(error)
     }
