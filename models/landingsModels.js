@@ -31,25 +31,16 @@ const getLandingByMass = async (mass) => {
         console.log(getLandingByMass);
         return getLandingByMass;
     }
-
-    // li>Nombre: {data.name}</li>
-    // <li>ID: {data.id}</li>
-    // <li>Clase: {data.recclass}</li>
-    // <li>Masa: {data.mass} kg</li>
-    // <li>Fecha: {data.year}</li>
-    // <li>Latitud: {data.reclat}</li>
-    // <li>Longitud: {data.reclong}</li>
-
-
     catch (error) {
         console.log(`ERROR: ${error.stack}`)
         res.status(404).json({ "message": "Landing not found" });
     }
 }
 
-const getLandingByClass = async (clas) => {
+const getLandingByClass = async (byClass) => {
     try {
-        const getLandingByClass = await landingSchema.find({ reclass: clas }, "name class -_id");
+        const getLandingByClass = await landingSchema.find({ recclass: byClass });
+        console.log(getLandingByClass);
         return getLandingByClass;
     }
     catch (error) {

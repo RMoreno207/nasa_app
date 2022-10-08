@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import styled from 'styled-components'
+import { useTable, usePagination } from 'react-table'
+
 
 class Card extends Component {
+
   render() {
     return <div>Card
       Con editar y borrar

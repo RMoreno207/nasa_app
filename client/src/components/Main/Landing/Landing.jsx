@@ -15,8 +15,8 @@ function Landing() {
   const { landingsByMass, setLandingsByMass } = useContext(landingsContext);
   const { landnigsByClass, setLandnigsByClass } = useContext(landingsContext);
   const { filter, setFilter } = useContext(landingsContext);
-  console.log(landings);
   const byMass = useRef();//useRef se usa como getElementById
+  const byClass = useRef();//useRef se usa como getElementById
 
   //Filter mass
   const handleMass = (e) => {
@@ -27,9 +27,12 @@ function Landing() {
 
   //Filter class
   const handleClass = (e) => {
-    const parameter = e.target.value;
+    e.preventDefault();
+    const parameter = byClass.current.value;
     setFilter(`class/${parameter}`);
   }
+
+  //Implementar Select para filtrar por rango de fecha
 
   var icon = new L.Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/2049/2049726.png',
@@ -60,7 +63,7 @@ function Landing() {
         </div>
         <div >
           <label htmlFor="searchClass">Search landing by class</label>
-          <input type="text" name="byClass" onChange={handleClass} placeholder="landing class" />
+          <input type="text" name="byClass" ref={byClass} placeholder="landing class" />
           <button className="button1" onClick={handleClass} > Search landing</button>
         </div>
       </form>
