@@ -3,13 +3,23 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import Card from "../../Card/Card";
 import { landingsContext } from '../../../../context/landingsContext';
+import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid';
+import { useTable, Table } from 'react-table'
 
 function LandingList() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
   const { filter, setFilter } = useContext(landingsContext);
   const landingSlice = landings.slice(0, 10);
+
+  const deleteLanding = (i) => {
+    // //filter
+    // const remainingPokemones = pokemones.filter((pokemon, j) => i !== j);
+    // setPokemones(remainingPokemones);
+    // console.log(pokemones);
+  }
+
   return (
     <div>
       <h1>Registra un nuevo Landing</h1>
@@ -167,7 +177,7 @@ function LandingList() {
       </form>
       <hr></hr>
       <h1>Listado de todos los Landings registrados</h1>
-      {landingSlice.map((landing, i) => <Card value={landing} key={uuidv4()} index={i} />
+      {landingSlice.map((landing, i) => <Card value={landing} key={uuidv4()} delete={() => deleteLanding(i)} index={i} />
       )}
     </div>
   )
