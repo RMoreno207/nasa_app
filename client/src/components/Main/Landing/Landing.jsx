@@ -1,7 +1,7 @@
 import React from 'react'
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
+import { landingsContext } from '../../../context/landingsContext';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
-import axios from "axios";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { map } from 'leaflet';
@@ -9,9 +9,30 @@ import { Link } from 'react-router-dom';
 
 
 
+
 function Landing() {
+  const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
+  const { landingsByMass, setLandingsByMass } = useContext(landingsContext);
+  const { landnigsByClass, setLandnigsByClass } = useContext(landingsContext);
+  const { filter, setFilter } = useContext(landingsContext);
+  const byMass = useRef();//useRef se usa como getElementById
+  const byClass = useRef();//useRef se usa como getElementById
 
+  //Filter mass
+  const handleMass = (e) => {
+    e.preventDefault();
+    const parameter = byMass.current.value;
+    setFilter(`mass/${parameter}`);
+  }
 
+  //Filter class
+  const handleClass = (e) => {
+    e.preventDefault();
+    const parameter = byClass.current.value;
+    setFilter(`class/${parameter}`);
+  }
+
+  //Implementar Select para filtrar por rango de fecha
 
   var icon = new L.Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/2049/2049726.png',
@@ -19,34 +40,6 @@ function Landing() {
     iconAnchor: null
   });
   const map = { "width": "100%", "height": "50vh" };
-
-  useEffect(() => {
-    getLandings()
-  }, [])
-
-  const getLandings = async () => {
-    try {
-      //Hacer fetch al back
-      const { data } = await axios.get(`/api/astronomy/landings/`);
-      const newLanding = {
-        name: data.name,
-        id: data.id,
-        nametype: data.nametype,
-        recclass: data.recclass,
-        mass: data.mass,
-        fall: data.fall,
-        year: data.year,
-        reclat: data.reclat,
-        relong: data.relong,
-        geolocation: data.geolocation,
-      }
-
-      console.log(data);
-    } catch (error) {
-      console.log(error)
-    }
-
-  }
 
   return (<>
     <div>
@@ -65,46 +58,46 @@ function Landing() {
       <form >
         <div >
           <label htmlFor="searchMass">Search landing by mass</label>
-          <input type="text" name="searchMass" placeholder="landing mass" />
-          <button className="button1">Search landing</button>
+          <input type="text" name="byMass" ref={byMass} placeholder="landing mass" />
+          <button className="button1" onClick={handleMass}>Search landing</button>
         </div>
         <div >
           <label htmlFor="searchClass">Search landing by class</label>
-          <input type="text" name="searchClass" placeholder="landing class" />
-          <button className="button1">Search landing</button>
+          <input type="text" name="byClass" ref={byClass} placeholder="landing class" />
+          <button className="button1" onClick={handleClass} > Search landing</button>
         </div>
       </form>
-    </div>
+    </div >
     <div>
       <MapContainer style={map} center={[51.505, -0.09]} zoom={2} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[51.775, 6.08333]} icon={icon} >
-          <Popup>
-            "name": "Aachen",
-            "id": "1",
-            "nametype": "Valid",
-            "recclass": "L5",
-            "mass": "21",
-            "fall": "Fell",          </Popup>
-        </Marker>
+        {landings.map((data, i) => data.geolocation && data.reclat && data.reclong ? (
+
+          <Marker
+            key={i}
+            position={[data.geolocation.latitude, data.geolocation.longitude]}
+            icon={icon}>
+            <Popup>Detalles:
+              <ul>
+                <li>Nombre: {data.name}</li>
+                <li>ID: {data.id}</li>
+                <li>Clase: {data.recclass}</li>
+                <li>Masa: {data.mass} kg</li>
+                <li>Fecha: {data.year}</li>
+                <li>Latitud: {data.reclat}</li>
+                <li>Longitud: {data.reclong}</li>
+              </ul>
+            </Popup>
+          </Marker>
+        ) : null)}
 
 
-        {/* Borrar y meter map del fetch del back */}
 
-        <Marker position={[56.18333, 10.23333]} icon={icon} >
-          <Popup>
-            "name": "Aachen",
-            "id": "1",
-            "nametype": "Valid",
-            "recclass": "L5",
-            "mass": "21",
-            "fall": "Fell",          </Popup>
-        </Marker>
+
       </MapContainer>
-      {/* Borrar y meter map del fetch del back */}
 
     </div>
     <div>

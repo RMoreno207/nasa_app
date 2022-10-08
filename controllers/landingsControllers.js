@@ -1,6 +1,19 @@
 const landingsModel = require('../models/landingsModels');
 
 //GET -----------------------------------------------------------------------
+const getAllLandings = async (req, res) => {
+    try {
+        const landings = await landingsModel.getAllLandings();
+        // console.log(landings);
+        res.status(200).json(landings);
+        console.log(landings.length);
+    } catch (error) {
+        console.log(`ERROR: ${error.stack}`);
+        res.status(404).json({ "message": "landing not found" });
+    }
+}
+
+
 const getLanding = async (req, res) => {
     //Guardamos los parametros req 
     //para obtener nombre y masa de todos aquellos meteoritos cuya masa sea igual o superior a una masa (gr) dada (con query parameters)​
@@ -18,16 +31,20 @@ const getLanding = async (req, res) => {
             res.status(404).json({ "message": "landing not found" });
         }
     } else {// /landings
-        const landings = await landingsModel.getAllLandings();
+        const landings = await landingsModel.getLandingByMass(mass);
         console.log(landings);
         res.status(200).json(landings);
     }
-}
+};
 
 const getLandingByMass = async (req, res) => {
     try {
-        let landingByMass = await landingsModel.getLandingByMass(req.params.mass);
+        let paramsInt = parseInt(req.params.mass);
+        console.log("holi", paramsInt);
+
+        let landingByMass = await landingsModel.getLandingByMass(paramsInt);
         res.status(200).json(landingByMass);
+        console.log(landingByMass);
     } catch (error) {
         console.log(`ERROR: ${error.stack}`);
         res.status(404).json({ "message": "landing not found" });
@@ -86,6 +103,7 @@ const deleteLanding = async (req, res) => {
 //---------------------------------------------------------------------------
 
 module.exports = {
+    getAllLandings,
     getLanding,
     getLandingByMass,
     getLandingByClass,

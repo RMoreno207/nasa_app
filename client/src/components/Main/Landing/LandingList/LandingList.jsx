@@ -1,10 +1,15 @@
 import React from 'react'
+import { useState, useEffect, useRef, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import Card from "../../Card/Card";
+import { landingsContext } from '../../../../context/landingsContext';
+import { v4 as uuidv4 } from 'uuid';
 
 function LandingList() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-
+  const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
+  const { filter, setFilter } = useContext(landingsContext);
+  const landingSlice = landings.slice(0, 10);
   return (
     <div>
       <h1>Registra un nuevo Landing</h1>
@@ -162,8 +167,8 @@ function LandingList() {
       </form>
       <hr></hr>
       <h1>Listado de todos los Landings registrados</h1>
-      <Card />
-
+      {landingSlice.map((landing, i) => <Card value={landing} key={uuidv4()} index={i} />
+      )}
     </div>
   )
 }
