@@ -27,10 +27,20 @@ const getLandingsMinimumMass = async (minMass) => {
 const getLandingByMass = async (mass) => {
     try {
         console.log(mass);
-        const getLandingByMass = await landingSchema.find({ mass: mass }, "name mass -_id");
+        const getLandingByMass = await landingSchema.find({ mass: mass });
         console.log(getLandingByMass);
         return getLandingByMass;
     }
+
+    // li>Nombre: {data.name}</li>
+    // <li>ID: {data.id}</li>
+    // <li>Clase: {data.recclass}</li>
+    // <li>Masa: {data.mass} kg</li>
+    // <li>Fecha: {data.year}</li>
+    // <li>Latitud: {data.reclat}</li>
+    // <li>Longitud: {data.reclong}</li>
+
+
     catch (error) {
         console.log(`ERROR: ${error.stack}`)
         res.status(404).json({ "message": "Landing not found" });
