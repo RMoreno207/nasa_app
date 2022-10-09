@@ -93,7 +93,7 @@ const deleteLanding = async (req, res) => {
     try {
         await landingsModel.deleteLanding(req.params.id);
         console.log("Landing deleted: ", req.params.id);
-        res.send("Landing deleted");
+
     } catch (error) {
         console.log(`ERROR: ${error.stack}`);
         res.status(404).json({ "message": "landing not found" });

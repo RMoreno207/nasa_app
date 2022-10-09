@@ -2,10 +2,13 @@ import React from 'react'
 import { useState, useEffect, useRef, useContext } from 'react';
 import ReactPaginate from "react-paginate";
 import { landingsContext } from '../../../context/landingsContext';
+import { v4 as uuidv4 } from 'uuid';
+import Card from '../Card/Card';
+import axios from 'axios';
 
 
 function List(props) {
-  // console.log(props);
+  console.log("list", props);
   // const { id, name, year, mass, recclass } = props.value;
 
 
@@ -24,30 +27,28 @@ function List(props) {
     setPageNumber(selected);
   }
 
-  const displayItems = items
-    .slice(pagesVisited, pagesVisited + itemsPerPage)
-    .map((items) => {
-      return (
-        <article>
-          <hr></hr>
-          <li>{items.name}</li>
-          <li>{items.id}</li>
-          <li>{items.mass}</li>
-          <li>{items.recclass}</li>
-          <li>{items.year}</li>
-          <li>Editar</li>
-          <li>Borrar</li>
-        </article>
-      );
-    });
+  // try {
+  //   axios.post('/api/astronomy/landings/create', refactorData)
+  // } catch (error) {
+  //   console.log(error, "No se ha podido crear el nuevo landing")
+  // }
 
-
-
+  const deleteItem = async (i, id) => {
+    try {
+      await axios.delete(`/api/astronomy/landings/delete/${id}`)
+    } catch (error) {
+      throw error
+    }
+    // const remainingLandings = landings.filter((landing, j) => i !== j)
+    // setLandings(remainingLandings);
+  }
 
 
   return (
-    <article>
-      {displayItems}
+    <section>
+      {items
+        .slice(pagesVisited, pagesVisited + itemsPerPage)
+        .map((items, i) => <Card key={uuidv4()} index={i} value={items} delete={() => deleteItem(i, items.id)} />)}
       <ReactPaginate
         previousLabel={"Previous"}
         nextLabel={"Next"}
@@ -58,7 +59,7 @@ function List(props) {
         disabledClassName={"paginationDisabled"}
         activeClassName={"paginationActive"}
       />
-    </article>
+    </section>
   )
 }
 

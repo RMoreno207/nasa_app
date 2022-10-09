@@ -95,9 +95,9 @@ const editLanding = async (landing) => {
     }
 }
 
-const deleteLanding = async (landing) => {
+const deleteLanding = async (id) => {
     try {
-        let answer = await landingSchema.delete({ id: landing.id });
+        let answer = await landingSchema.deleteOne({ id: id });
         console.log(answer);
     }
     catch (error) {

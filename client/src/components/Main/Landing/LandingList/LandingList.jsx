@@ -15,11 +15,10 @@ function LandingList() {
     setFilter("");
   }, []);
 
-  const deleteLanding = (i) => {
 
-  }
 
-  const onSubmit = async (data) => {
+
+  const createItem = async (data) => {
     console.log(data);
     const refactorData = {
       name: data.name,
@@ -38,7 +37,7 @@ function LandingList() {
 
     }
     try {
-      axios.post('/api/astronomy/landings/create', refactorData)
+      await axios.post('/api/astronomy/landings/create', refactorData)
     } catch (error) {
       console.log(error, "No se ha podido crear el nuevo landing")
     }
@@ -48,7 +47,7 @@ function LandingList() {
     <div>
       <h1>Registra un nuevo Landing</h1>
       {/* <form onSubmit={handleSubmit(onSubmit)}> */}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(createItem)}>
         <fieldset>
           <div>
             <label id="id">ID</label>
