@@ -13,6 +13,10 @@ function LandingList() {
   const { filter, setFilter } = useContext(landingsContext);
   const landingSlice = landings.slice(0, 15);
 
+  useEffect(() => {
+    setFilter("");
+  }, []);
+
   const deleteLanding = (i) => {
     // //filter
     // const remainingPokemones = pokemones.filter((pokemon, j) => i !== j);
