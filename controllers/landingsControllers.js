@@ -68,7 +68,6 @@ const createLanding = async (req, res) => {
         let newLanding = await landingsModel.createLanding(req.body);
         res.status(200).json(newLanding);
         console.log("Landing created: ", req.body);
-        res.send("Landing created");
     } catch (error) {
         console.log(`ERROR: ${error.stack}`);
         res.status(404).json({ "message": "landing not found" });
