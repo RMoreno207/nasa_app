@@ -6,6 +6,7 @@ function Card(props) {
 
   return (
     <article>
+      <hr></hr>
       <ul>
         <li>{name}</li>
         <li>{id}</li>

@@ -6,27 +6,60 @@ import { landingsContext } from '../../../../context/landingsContext';
 import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid';
 import { useTable, Table } from 'react-table'
+import ReactPaginate from "react-paginate";
+
 
 function LandingList() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
   const { filter, setFilter } = useContext(landingsContext);
-  const landingSlice = landings.slice(0, 15);
+  //-------------------------Paginacion------------------------------------------------------
+  const [landingSlice, setLandingSlice] = useState(landings.slice(0, 51));//Para paginacion
+  const [pageNumber, setPageNumber] = useState(0);//Para paginacion
+
+  const itemsPerPage = 10;//Numero de items a mostrar en cada pagina
+  const pagesVisited = pageNumber * itemsPerPage;
+  const pageCount = Math.ceil(landingSlice.length / itemsPerPage);//Contador de paginas
+
+  const changePage = ({ selected }) => {//componente ReactPaginate contiene un objeto llamado selected y nos dice la pagina en la que estamos
+    setPageNumber(selected);
+  }
+
+  const displayItems = landingSlice
+    .slice(pagesVisited, pagesVisited + itemsPerPage)
+    .map((landingSlice) => {
+      return (
+        <article>
+          <h3>{landingSlice.name}</h3>
+        </article>
+      );
+    });
+
+
+  //------------------------------Fin Paginacion---------------------------------------------
 
   useEffect(() => {
     setFilter("");
   }, []);
 
   const deleteLanding = (i) => {
-    // //filter
-    // const remainingPokemones = pokemones.filter((pokemon, j) => i !== j);
-    // setPokemones(remainingPokemones);
-    // console.log(pokemones);
+
   }
 
   return (
     <div>
       <h1>Registra un nuevo Landing</h1>
+      {displayItems}
+      <ReactPaginate
+        previousLabel={"Previous"}
+        nextLabel={"Next"}
+        pageCount={pageCount}
+        onPageChange={changePage}
+        containerClassName={"paginationBttns"}
+        nextLinkClassName={"nextBttn"}
+        disabledClassName={"paginationDisabled"}
+        activeClassName={"paginationActive"}
+      />
       {/* <form onSubmit={handleSubmit(onSubmit)}> */}
       <form>
         <fieldset>
