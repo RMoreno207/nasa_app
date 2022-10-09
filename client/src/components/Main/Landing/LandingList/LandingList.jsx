@@ -11,7 +11,7 @@ function LandingList() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
   const { filter, setFilter } = useContext(landingsContext);
-  const landingSlice = landings.slice(0, 10);
+  const landingSlice = landings.slice(0, 15);
 
   const deleteLanding = (i) => {
     // //filter

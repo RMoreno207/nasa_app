@@ -6,29 +6,13 @@ import { useContext } from "react";
 
 
 function Home() {
-  const [apod, setApod] = useState(""); //Almacenar la url del APOD
+  const { apod, setApod } = useContext(landingsContext); //Traer la url del APOD
   const { filter, setFilter } = useContext(landingsContext);
-  const url = "https://api.nasa.gov/planetary/apod?api_key=";
-  const apiKey = process.env.REACT_APP_API_KEY
-
-
-  const getApod = async () => {
-    try {
-      const { data } = await axios.get(url + apiKey);//fetch a API NASA para obtener el APOD
-      const dataFilter = {
-        url: data.hdurl,
-        title: data.title
-      }
-      setApod(dataFilter);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   useEffect(() => {
     setFilter("");
-    getApod()//Lanzamos la busqueda
   }, []);
+
   return (
     <div>
       <h1>This is the APOD</h1>
