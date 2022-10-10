@@ -2,14 +2,30 @@ const landingsModel = require('../models/landingsModels');
 
 //GET -----------------------------------------------------------------------
 const getAllLandings = async (req, res) => {
-    try {
-        const landings = await landingsModel.getAllLandings();
-        // console.log(landings);
-        res.status(200).json(landings);
-        console.log(landings.length);
-    } catch (error) {
-        console.log(`ERROR: ${error.stack}`);
-        res.status(404).json({ "message": "landing not found" });
+    if (req.query.id) {
+        console.log("req query", req.query);
+        try {
+            const landings = await landingsModel.getLandingById(req.query.id);
+            // console.log(landings);
+            res.status(200).json(landings);
+            console.log(landings, landings.length);
+
+        } catch (error) {
+            console.log(`ERROR: ${error.stack}`);
+            res.status(404).json({ "message": "landing not found" });
+        }
+    } else {
+
+        try {
+
+            const landings = await landingsModel.getAllLandings();
+            // console.log(landings);
+            res.status(200).json(landings);
+            console.log("All landings", landings.length);
+        } catch (error) {
+            console.log(`ERROR: ${error.stack}`);
+            res.status(404).json({ "message": "landing not found" });
+        }
     }
 }
 

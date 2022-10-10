@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect, useRef, useContext } from 'react';
 import ReactPaginate from "react-paginate";
+import { Link } from 'react-router-dom';
 import { landingsContext } from '../../../context/landingsContext';
 
 
@@ -18,7 +19,7 @@ function Card(props) {
       <li>{props.value.mass}</li>
       <li>{props.value.recclass}</li>
       <li>{props.value.year}</li>
-      <li>Editar</li>
+      <Link to={`/landing/form/${props.value.id}`}><button>Editar</button></Link>
       <button onClick={props.delete}>Borrar</button>
     </article>
   )
