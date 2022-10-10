@@ -1,25 +1,41 @@
-import React from 'react'
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useParams, Link } from "react-router-dom";//Para capturar el parametro ID pasado por los parametros del router
+import React, { useEffect, useState, useContext } from "react";
+import { landingsContext } from '../../../../context/landingsContext'
 import { useForm } from 'react-hook-form';
-import List from "../../List/List";
-import { landingsContext } from '../../../../context/landingsContext';
-import axios from 'axios';
+import axios from "axios";
 
 
-function LandingList() {
+function LandingForm(props) {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
-  const { filter, setFilter } = useContext(landingsContext);
+  // const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
+  const params = useParams();// Para poder usar los parametros capturados por el router
+  console.log(params);
+  const [searchId] = useState(params.id);//Creo variable de estado local para almacenar la ID
+  const [search, setSearch] = useState();
+  console.log(searchId);
+  console.log("search", search);
+
+
+  const itemDetails = async () => {
+    try {
+      console.log("Estas en el fetch");
+      const { data } = await axios.get(`/api/astronomy/landings/?id=${searchId}`);
+      console.log("DATA", data);
+      setSearch(...data)
+      // console.log(search.name);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  console.log("SEARCH", search);
 
   useEffect(() => {
-    setFilter("");
-  }, []);
+    itemDetails()//Lanzamos la busqueda
+  }, []
+  );
 
-
-
-
-  const createItem = async (data) => {
-    console.log(data);
+  const editItem = async (data) => {
+    console.log("36", data);
     const refactorData = {
       name: data.name,
       id: data.id,
@@ -36,31 +52,29 @@ function LandingList() {
       }
 
     }
+
     try {
-      await axios.post('/api/astronomy/landings/create', refactorData)
+      await axios.post('/api/astronomy/landings/edit', refactorData)
     } catch (error) {
-      console.log(error, "No se ha podido crear el nuevo landing")
+      console.log(error, "No se ha podido editar el landing")
     }
   }
 
   return (
     <div>
-      <h1>Registra un nuevo Landing</h1>
-      {/* <form onSubmit={handleSubmit(onSubmit)}> */}
-      <form onSubmit={handleSubmit(createItem)}>
+      {search ? <form onSubmit={handleSubmit(editItem)}>
         <fieldset>
           <div>
-            <label id="id">ID</label>
+
             <input
               id="outlined-basic"
               label="id"
               variant="outlined"
-              {...register("id", { required: true, valueAsNumber: true })}
-              type="string"
+              type="hidden"
               name="id"
-              placeholder="2000"
+              value="search.id"
             />
-            <p>{errors.id?.message}</p>
+
           </div>
           <div>
             <label id="name">Nombre</label>
@@ -71,8 +85,7 @@ function LandingList() {
               {...register("name", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="name"
-              value="Rokamon"
-            />
+              value={search.name} />
             <p>{errors.name?.message}</p>
           </div>
           <div>
@@ -96,8 +109,7 @@ function LandingList() {
               {...register("recclass", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="recclass"
-              placeholder="L5"
-            />
+              value={search.recclass} />
             <p>{errors.recclass?.message}</p>
           </div>
           <div>
@@ -109,8 +121,7 @@ function LandingList() {
               {...register("mass", { required: true, minLength: { value: 1, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="number"
               name="mass"
-              placeholder="2000"
-            />
+              value={search.mass} />
             <p>{errors.mass?.message}</p>
           </div>
           <div>
@@ -132,8 +143,7 @@ function LandingList() {
               {...register("year", { required: true })}
               type="date"
               name="year"
-              placeholder="Rokamon"
-            />
+              value={search.year} />
 
           </div>
           <div>
@@ -145,8 +155,7 @@ function LandingList() {
               {...register("reclat", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="reclat"
-              value="37.41667"
-            />
+              value={search.reclat} />
             <p>{errors.reclat?.message}</p>
           </div>
           <div>
@@ -158,8 +167,7 @@ function LandingList() {
               {...register("reclong", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="reclong"
-              value="-6"
-            />
+              value={search.reclong} />
             <p>{errors.reclong?.message}</p>
           </div>
           <div>
@@ -172,8 +180,7 @@ function LandingList() {
               {...register("latitude", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="latitude"
-              value="37.41667"
-            />
+              value={search.geolocation.latitude} />
             <p>{errors.name?.message}</p>
             <label>Longitud</label>
             <input
@@ -183,23 +190,19 @@ function LandingList() {
               {...register("longitude", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="longitude"
-              value="-6"
-            />
+              value={search.geolocation.longitude} />
             <p>{errors.name?.message}</p>
 
           </div>
 
 
           <div>
-            <button type="submit">Create</button>
+            <button type="submit">Edit</button>
           </div>
         </fieldset>
-      </form>
-      <hr></hr>
-      <h1>Listado de todos los Landings registrados</h1>
-      <List />
+      </form> : "Loading..."}
     </div>
   )
 }
 
-export default LandingList
+export default LandingForm

@@ -24,6 +24,19 @@ const getLandingsMinimumMass = async (minMass) => {
     }
 }
 
+const getLandingById = async (id) => {
+    try {
+        console.log("getLandingById", id);
+        const getLandingById = await landingSchema.find({ id: id });
+        console.log(getLandingById);
+        return getLandingById;
+    }
+    catch (error) {
+        console.log(`ERROR: ${error.stack}`)
+        res.status(404).json({ "message": "Landing not found" });
+    }
+}
+
 const getLandingByMass = async (mass) => {
     try {
         console.log(mass);
@@ -67,21 +80,10 @@ const createLanding = async (landing) => {
 
 const editLanding = async (landing) => {
     try {
-        const editLanding = {
-            "id": landing.id,
-            "name": landing.name,
-            "nametype": landing.nametype,
-            "recclass": landing.recclass,
-            "mass": landing.mass,
-            "fall": landing.fall,
-            "year": landing.year,
-            "reclat": landing.reclat,
-            "reclong": landing.reclong,
-            "geolocation": landing.geolocation
-        }
-        console.log(editLanding);
-        const genuineLanding = await landingSchema.edit({ id: landing.id }, editLanding);
-        genuineLanding.overwrite(editLanding);
+        const newLanding = (landing.body)
+        console.log(newLanding);
+        const genuineLanding = await landingSchema.findOneAndUpdate({ id: landing.id }, newLanding);
+        genuineLanding.overwrite(newLanding);
         console.log("Edited", genuineLanding);
         await genuineLanding.save();
         return {
@@ -95,9 +97,9 @@ const editLanding = async (landing) => {
     }
 }
 
-const deleteLanding = async (landing) => {
+const deleteLanding = async (id) => {
     try {
-        let answer = await landingSchema.delete({ id: landing.id });
+        let answer = await landingSchema.deleteOne({ id: id });
         console.log(answer);
     }
     catch (error) {
@@ -109,6 +111,7 @@ const deleteLanding = async (landing) => {
 const landingsModels = {
     getAllLandings,
     getLandingsMinimumMass,
+    getLandingById,
     getLandingByMass,
     getLandingByClass,
     createLanding,

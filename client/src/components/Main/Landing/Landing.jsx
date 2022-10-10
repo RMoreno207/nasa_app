@@ -21,6 +21,7 @@ function Landing() {
   //Filter mass
   const handleMass = (e) => {
     e.preventDefault();
+    console.log(e);
     const parameter = byMass.current.value;
     setFilter(`mass/${parameter}`);
   }
