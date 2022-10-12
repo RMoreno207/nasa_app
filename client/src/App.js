@@ -10,6 +10,7 @@ import axios from 'axios';
 
 function App() {
   const [landings, setLandings] = useState([]);//Almacenar fetch de all landings
+  const [items, setItems] = useState([]);//Almacenar fetch de all landings
   const [filter, setFilter] = useState("");//almacena el parametro para filtrar
   const [apod, setApod] = useState([]);//almacena el apod
   const url = "https://api.nasa.gov/planetary/apod?api_key=";
@@ -40,7 +41,7 @@ function App() {
       console.log(filter);
       const { data } = await axios.get(`/api/astronomy/landings/${filter}`);
       setLandings(data);
-      console.log(data);
+      setItems(data)
     } catch (error) {
       console.log(error)
     }
@@ -49,10 +50,13 @@ function App() {
   const data = {
     landings,
     setLandings,
+    items,
+    setItems,
     filter,
     setFilter,
     apod,
-    setApod
+    setApod,
+    getLandings
   };
 
 

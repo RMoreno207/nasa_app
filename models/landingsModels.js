@@ -80,16 +80,12 @@ const createLanding = async (landing) => {
 
 const editLanding = async (landing) => {
     try {
-        const newLanding = (landing.body)
+        const newLanding = (landing)
         console.log(newLanding);
         const genuineLanding = await landingSchema.findOneAndUpdate({ id: landing.id }, newLanding);
         genuineLanding.overwrite(newLanding);
-        console.log("Edited", genuineLanding);
         await genuineLanding.save();
-        return {
-            answer: "edited",
-            landingSchema: genuineLanding
-        }
+        return genuineLanding;
     }
     catch (error) {
         console.log(`ERROR: ${error.stack}`)

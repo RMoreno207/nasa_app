@@ -2,21 +2,25 @@ import React from 'react'
 import { useState, useEffect, useRef, useContext } from 'react';
 import { landingsContext } from '../../../context/landingsContext';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { useForm } from 'react-hook-form';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { map } from 'leaflet';
 import { Link } from 'react-router-dom';
 
 
-
-
 function Landing() {
-  const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
-  const { landingsByMass, setLandingsByMass } = useContext(landingsContext);
-  const { landnigsByClass, setLandnigsByClass } = useContext(landingsContext);
-  const { filter, setFilter } = useContext(landingsContext);
+  const { landings } = useContext(landingsContext);//Almacenar fetch de all landings
+  const { setFilter } = useContext(landingsContext);
+  const { register, setValue, reset, handleSubmit, watch, formState, formState: { errors, isSubmitSuccessful } } = useForm();
   const byMass = useRef();//useRef se usa como getElementById
   const byClass = useRef();//useRef se usa como getElementById
+
+
+  //Borrar filtros
+  const handleDeleteFilters = () => {
+    setFilter("");
+  }
 
   //Filter mass
   const handleMass = (e) => {
@@ -32,8 +36,6 @@ function Landing() {
     const parameter = byClass.current.value;
     setFilter(`class/${parameter}`);
   }
-
-  //Implementar Select para filtrar por rango de fecha
 
   var icon = new L.Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/2049/2049726.png',
@@ -57,10 +59,14 @@ function Landing() {
     <div>
       <h2>Filters</h2>
       <form >
+
+        <div >
+          <button className="button1" onClick={handleDeleteFilters}>Delete filters</button>
+        </div>
         <div >
           <label htmlFor="searchMass">Search landing by mass</label>
           <input type="text" name="byMass" ref={byMass} placeholder="landing mass" />
-          <button className="button1" onClick={handleMass}>Search landing</button>
+          <button className="button1" type='submit' onClick={handleMass}>Search landing</button>
         </div>
         <div >
           <label htmlFor="searchClass">Search landing by class</label>
@@ -70,13 +76,12 @@ function Landing() {
       </form>
     </div >
     <div>
-      <MapContainer style={map} center={[51.505, -0.09]} zoom={2} scrollWheelZoom={true}>
+      <MapContainer style={map} center={[51.505, -0.09]} zoom={1} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {landings.map((data, i) => data.geolocation && data.reclat && data.reclong ? (
-
           <Marker
             key={i}
             position={[data.geolocation.latitude, data.geolocation.longitude]}
@@ -94,17 +99,7 @@ function Landing() {
             </Popup>
           </Marker>
         ) : null)}
-
-
-
-
       </MapContainer>
-
-    </div>
-    <div>
-      <Link to={"/landing/list"}>
-        <button>Crear un landing</button>
-      </Link>
     </div>
   </>)
 }

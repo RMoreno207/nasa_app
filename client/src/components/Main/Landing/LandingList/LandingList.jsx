@@ -2,21 +2,106 @@ import React from 'react'
 import { useState, useEffect, useRef, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import List from "../../List/List";
-import { landingsContext } from '../../../../context/landingsContext';
 import axios from 'axios';
+import { landingsContext } from '../../../../context/landingsContext';
 
 
 function LandingList() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, setValue, reset, handleSubmit, watch, formState, formState: { errors, isSubmitSuccessful } } = useForm();
   const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
-  const { filter, setFilter } = useContext(landingsContext);
+  const { items, setItems } = useContext(landingsContext);//Almacenar fetch de all landings
+  const [sortName, setSortName] = useState(true);
+  const [sortMass, setSortMass] = useState(false);
+  const [sortDate, setSortDate] = useState(false);
+  const byName = useRef();//useRef se usa como getElementById
+
+
 
   useEffect(() => {
-    setFilter("");
-  }, []);
+    if (isSubmitSuccessful) {//Para resetear todos los input
+      reset({
+        id: "",
+        recclass: "",
+        mass: ""
+      });
+    }
+  }, [formState, items]);
 
+  //Borrar filtros
+  const handleDeleteFilters = () => {
+    setItems(landings);
+  }
 
+  const handleName = (e) => {
+    e.preventDefault();
+    const parameter = byName.current.value;
+    console.log(parameter);
+    const newItem = items.filter((item, i) => parameter.toUpperCase() == item.name.toUpperCase())//"convertimos" en mayusculas ambos parametros a comparar
+    setItems(newItem);
+  }
 
+  //Ordenar por nombre
+  function handleSortByName() {
+    if (sortName) {
+      //Para ordenar de la Z a la A
+      const data = [...items].sort((a, b) => {
+        return a.name.toUpperCase() < b.name.toUpperCase() ? 1 : -1
+      })
+      setItems(data);
+      setSortName(false)
+      console.log("Orneado de la Z a la A");
+    } else {
+      //Para ordenar de la A a la Z
+      const data = [...items].sort((a, b) => {
+        return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1
+      })
+      setItems(data);
+      setSortName(true)
+      console.log("Ordenado de la A a la Z");
+    }
+  }
+
+  //Ordenar por masa
+  function handleSortByMass() {
+    if (sortMass) {
+      //Para ordenar de la Mas a menos
+      const data = [...items].sort((a, b) => {
+        return a.mass < b.mass ? 1 : -1
+      })
+      setItems(data);
+      setSortMass(false)
+      console.log("Orneado de la Z a la A");
+    } else {
+      //Para ordenar de la Menos a Mas
+      const data = [...items].sort((a, b) => {
+        return a.mass > b.mass ? 1 : -1
+      })
+      setItems(data);
+      setSortMass(true)
+      console.log("Ordenado de la A a la Z");
+    }
+  }
+
+  //Ordenar por fecha
+  function handleSortByDate() {
+    if (sortDate) {
+      //Para ordenar de la Mas a menos
+      const data = [...items].sort((a, b) => {
+        return a.year < b.year ? 1 : -1
+      })
+      setItems(data);
+      setSortDate(false)
+      console.log("Orneado de la Z a la A");
+    } else {
+      //Para ordenar de la Menos a Mas
+      const data = [...items].sort((a, b) => {
+        return a.year > b.year ? 1 : -1
+      })
+      setItems(data);
+      setSortDate(true)
+      console.log("Ordenado de la A a la Z");
+    }
+  }
 
   const createItem = async (data) => {
     console.log(data);
@@ -38,13 +123,23 @@ function LandingList() {
     }
     try {
       await axios.post('/api/astronomy/landings/create', refactorData)
+      setLandings([...landings, refactorData])
+      setItems([...items, refactorData])
+      alert("Landing creado con exito!")
     } catch (error) {
+      alert("No ha sido posible crear el nuevo landing")
       console.log(error, "No se ha podido crear el nuevo landing")
     }
   }
 
   return (
     <div>
+      {setValue("latitude", "37.41667")}
+      {setValue("longitude", "-6")}
+      {setValue("name", "Rokamon")}
+      {setValue("reclat", "37.41667")}
+      {setValue("reclong", "-6")}
+
       <h1>Registra un nuevo Landing</h1>
       {/* <form onSubmit={handleSubmit(onSubmit)}> */}
       <form onSubmit={handleSubmit(createItem)}>
@@ -71,7 +166,7 @@ function LandingList() {
               {...register("name", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="name"
-              value="Rokamon"
+
             />
             <p>{errors.name?.message}</p>
           </div>
@@ -84,6 +179,8 @@ function LandingList() {
               type="hidden"
               name="nametype"
               value="Valid"
+              {...register("nametype", { required: true })}
+
             />
 
           </div>
@@ -121,6 +218,8 @@ function LandingList() {
               type="hidden"
               name="fall"
               value="Fell"
+              {...register("fall", { required: true })}
+
             />
           </div>
           <div>
@@ -132,7 +231,7 @@ function LandingList() {
               {...register("year", { required: true })}
               type="date"
               name="year"
-              placeholder="Rokamon"
+
             />
 
           </div>
@@ -145,7 +244,7 @@ function LandingList() {
               {...register("reclat", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="reclat"
-              value="37.41667"
+
             />
             <p>{errors.reclat?.message}</p>
           </div>
@@ -158,7 +257,7 @@ function LandingList() {
               {...register("reclong", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="reclong"
-              value="-6"
+
             />
             <p>{errors.reclong?.message}</p>
           </div>
@@ -172,7 +271,7 @@ function LandingList() {
               {...register("latitude", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="latitude"
-              value="37.41667"
+
             />
             <p>{errors.name?.message}</p>
             <label>Longitud</label>
@@ -183,7 +282,7 @@ function LandingList() {
               {...register("longitude", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="longitude"
-              value="-6"
+
             />
             <p>{errors.name?.message}</p>
 
@@ -197,7 +296,24 @@ function LandingList() {
       </form>
       <hr></hr>
       <h1>Listado de todos los Landings registrados</h1>
-      <List />
+      <div >
+        <button className="button1" onClick={handleDeleteFilters}>Delete filters</button>
+      </div>
+      <div >
+        <label htmlFor="searchMass">Search landing by name</label>
+        <input type="text" name="byName" ref={byName} placeholder="landing name" />
+        <button className="button1" type='submit' onClick={handleName}>Search landing</button>
+      </div>
+      <div >
+        <button className="button1" onClick={handleSortByName}>Sort by name</button>
+      </div>
+      <div >
+        <button className="button1" onClick={handleSortByDate}>Sort by date</button>
+      </div>
+      <div >
+        <button className="button1" onClick={handleSortByMass}>Sort by mass</button>
+      </div>
+      {landings.length > 0 ? <List /> : "Loading..."}
     </div>
   )
 }

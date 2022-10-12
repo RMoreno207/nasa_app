@@ -96,7 +96,6 @@ const editLanding = async (req, res) => {
     try {
         await landingsModel.editLanding(req.body);
         console.log("Landing edited: ", req.body);
-        res.send("Landing edited");
     } catch (error) {
         console.log(`ERROR: ${error.stack}`);
         res.status(404).json({ "message": "landing not found" });
