@@ -7,7 +7,7 @@ const Nav = () => {
     <nav className={"nav-bar"}>
       <Link to="/">Home</Link>
       <Link to="/landing">Asteroids</Link>
-      <Link to="/landing/list">Neas</Link>
+      <Link to="/landing/list">List</Link>
     </nav>
   )
 };

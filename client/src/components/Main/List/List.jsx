@@ -8,17 +8,13 @@ import axios from 'axios';
 
 
 function List(props) {
-  console.log("list", props);
-  // const { id, name, year, mass, recclass } = props.value;
-
-
-
-
   const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
-  const [items, setItems] = useState(landings.slice(0, 21));//Recoge los datos a mostrar
-  console.log(items);
-  const [pageNumber, setPageNumber] = useState(0);//Para paginacion
+  // const { getLandings } = useContext(landingsContext);
+  const { items, setItems } = useContext(landingsContext);//Recoge los datos a mostrar
+  // const [triger, setTriger] = useState(false);
+  // const [searchId, setSearchId] = useState();//Creo variable de estado local para almacenar la ID
 
+  const [pageNumber, setPageNumber] = useState(0);//Para paginacion
   const itemsPerPage = 5;//Numero de items a mostrar en cada pagina
   const pagesVisited = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(items.length / itemsPerPage);//Contador de paginas
@@ -27,28 +23,48 @@ function List(props) {
     setPageNumber(selected);
   }
 
-  // try {
-  //   axios.post('/api/astronomy/landings/create', refactorData)
-  // } catch (error) {
-  //   console.log(error, "No se ha podido crear el nuevo landing")
-  // }
+  // useEffect(() => {
+  //   console.log("useEffect");
+  //   if (triger) {
+  //     // getLandings()
+  //     console.log(landings);
+  //     // const remainingItems = items.filter((item, j) => searchId !== item.id)
+  //     // setItems(remainingItems);
+  //     // console.log("remainingItems", remainingItems);
+  //     // alert("Landing borrada con exito!")
+  //   }
 
-  const deleteItem = async (i, id) => {
+  // }, []
+  // );
+
+
+  const deleteItem = async (id) => {
     try {
-      await axios.delete(`/api/astronomy/landings/delete/${id}`)
+      console.log(landings);
+      const remainingLandings = landings.filter((item) => id !== item.id)//Creamos una cosntante con el listado de landings sin el que acabamos de borrar
+      setLandings(remainingLandings);//Guardamos el nuevo listado en Landings
+      setItems(remainingLandings);//Guardamos el nuevo listado en Items para que se actualice la lista renderizada
+      alert("Landing borrada correctamente");
+      console.log(landings);
+
+
+      // setSearchId(i)
+      // setTriger(true)
+      console.log("DELETE ITEM", id);
+      await axios.delete(`/api/astronomy/landings/delete/${id}`)//Borramos la landing de la base de datos
+
     } catch (error) {
       throw error
     }
-    // const remainingLandings = landings.filter((landing, j) => i !== j)
-    // setLandings(remainingLandings);
+
   }
 
 
   return (
     <section>
-      {items
+      {items.length > 0 ? items
         .slice(pagesVisited, pagesVisited + itemsPerPage)
-        .map((items, i) => <Card key={uuidv4()} index={i} value={items} delete={() => deleteItem(i, items.id)} />)}
+        .map((item, i) => <Card key={uuidv4()} index={i} value={item} delete={() => deleteItem(item.id)} />) : "Loading..."}
       <ReactPaginate
         previousLabel={"Previous"}
         nextLabel={"Next"}
