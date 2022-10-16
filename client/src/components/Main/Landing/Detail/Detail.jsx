@@ -1,10 +1,9 @@
-import { useParams, Link, useNavigate, Navigate } from "react-router-dom";//Para capturar el parametro ID pasado por los parametros del router
+import { useParams, Link } from "react-router-dom";//Para capturar el parametro ID pasado por los parametros del router
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { map } from 'leaflet';
 
 
 function Detail() {
@@ -25,6 +24,7 @@ function Detail() {
   });
   const map = { "width": "100%", "height": "50vh" };
 
+  //Obtener los detalles del landing
   const itemDetails = async () => {
     try {
       const { data } = await axios.get(`/api/astronomy/landings/?id=${searchId}`);

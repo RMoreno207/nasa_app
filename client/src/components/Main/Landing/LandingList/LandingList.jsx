@@ -7,18 +7,17 @@ import { landingsContext } from '../../../../context/landingsContext';
 
 
 function LandingList() {
-  const { register, setValue, reset, handleSubmit, watch, formState, formState: { errors, isSubmitSuccessful } } = useForm();
+  const { register, setValue, reset, handleSubmit, formState, formState: { errors, isSubmitSuccessful } } = useForm();
   const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
-  const { items, setItems } = useContext(landingsContext);//Almacenar fetch de all landings
-  const [sortName, setSortName] = useState(true);
-  const [sortMass, setSortMass] = useState(false);
-  const [sortDate, setSortDate] = useState(false);
+  const { items, setItems } = useContext(landingsContext);//Almacenar fetch de all landings para paginar
+  const [sortName, setSortName] = useState(true); //Estado ordenar por nombre ascendente o descendente
+  const [sortMass, setSortMass] = useState(false);//Estado ordenar por masa ascendente o descendente
+  const [sortDate, setSortDate] = useState(false);//Estado ordenar por fecha ascendente o descendente
   const byName = useRef();//useRef se usa como getElementById
 
 
-
   useEffect(() => {
-    if (isSubmitSuccessful) {//Para resetear todos los input
+    if (isSubmitSuccessful) {//Para resetear todos los input al crear un landing
       reset({
         id: "",
         recclass: "",
@@ -32,10 +31,10 @@ function LandingList() {
     setItems(landings);
   }
 
+  //Buscar por nombre
   const handleName = (e) => {
     e.preventDefault();
     const parameter = byName.current.value;
-    console.log(parameter);
     const newItem = items.filter((item, i) => parameter.toUpperCase() == item.name.toUpperCase())//"convertimos" en mayusculas ambos parametros a comparar
     setItems(newItem);
   }
@@ -49,7 +48,6 @@ function LandingList() {
       })
       setItems(data);
       setSortName(false)
-      console.log("Orneado de la Z a la A");
     } else {
       //Para ordenar de la A a la Z
       const data = [...items].sort((a, b) => {
@@ -57,7 +55,6 @@ function LandingList() {
       })
       setItems(data);
       setSortName(true)
-      console.log("Ordenado de la A a la Z");
     }
   }
 
@@ -70,7 +67,6 @@ function LandingList() {
       })
       setItems(data);
       setSortMass(false)
-      console.log("Orneado de la Z a la A");
     } else {
       //Para ordenar de la Menos a Mas
       const data = [...items].sort((a, b) => {
@@ -78,7 +74,6 @@ function LandingList() {
       })
       setItems(data);
       setSortMass(true)
-      console.log("Ordenado de la A a la Z");
     }
   }
 
@@ -91,7 +86,6 @@ function LandingList() {
       })
       setItems(data);
       setSortDate(false)
-      console.log("Orneado de la Z a la A");
     } else {
       //Para ordenar de la Menos a Mas
       const data = [...items].sort((a, b) => {
@@ -99,10 +93,10 @@ function LandingList() {
       })
       setItems(data);
       setSortDate(true)
-      console.log("Ordenado de la A a la Z");
     }
   }
 
+  //Preparar datos recibidos del formulario para añadirlos a la bbdd
   const createItem = async (data) => {
     console.log(data);
     const refactorData = {
@@ -119,7 +113,6 @@ function LandingList() {
         latitude: data.latitude,
         longitude: data.longitude
       }
-
     }
     try {
       await axios.post('/api/astronomy/landings/create', refactorData)
@@ -134,14 +127,13 @@ function LandingList() {
 
   return (
     <div>
+      {/* Valores por defecto en el formulario para facilitar la creacion */}
       {setValue("latitude", "37.41667")}
       {setValue("longitude", "-6")}
-      {setValue("name", "Rokamon")}
       {setValue("reclat", "37.41667")}
       {setValue("reclong", "-6")}
 
       <h1>Registra un nuevo Landing</h1>
-      {/* <form onSubmit={handleSubmit(onSubmit)}> */}
       <form onSubmit={handleSubmit(createItem)}>
         <fieldset>
           <div>
@@ -313,6 +305,7 @@ function LandingList() {
       <div >
         <button className="button1" onClick={handleSortByMass}>Sort by mass</button>
       </div>
+      {/* Renderizamos el componente List si el estado de landings no esta vacio */}
       {landings.length > 0 ? <List /> : "Loading..."}
     </div>
   )

@@ -1,18 +1,15 @@
 import React from 'react'
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useRef, useContext } from 'react';
 import { landingsContext } from '../../../context/landingsContext';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
-import { useForm } from 'react-hook-form';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import { map } from 'leaflet';
 import { Link } from 'react-router-dom';
+import 'leaflet/dist/leaflet.css';
 
 
 function Landing() {
   const { landings } = useContext(landingsContext);//Almacenar fetch de all landings
   const { setFilter } = useContext(landingsContext);
-  const { register, setValue, reset, handleSubmit, watch, formState, formState: { errors, isSubmitSuccessful } } = useForm();
   const byMass = useRef();//useRef se usa como getElementById
   const byClass = useRef();//useRef se usa como getElementById
 
@@ -59,7 +56,6 @@ function Landing() {
     <div>
       <h2>Filters</h2>
       <form >
-
         <div >
           <button className="button1" onClick={handleDeleteFilters}>Delete filters</button>
         </div>
@@ -88,7 +84,7 @@ function Landing() {
             icon={icon}>
             <Popup>Detalles:
               <ul>
-                <li>Nombre: {data.name}</li>
+                <li>Nombre: <Link to={`/landing/detail/${data.id}`}>{data.name}</Link></li>
                 <li>ID: {data.id}</li>
                 <li>Clase: {data.recclass}</li>
                 <li>Masa: {data.mass} kg</li>
@@ -104,6 +100,3 @@ function Landing() {
   </>)
 }
 export default Landing
-
-
-

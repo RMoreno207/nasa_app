@@ -10,10 +10,10 @@ import axios from 'axios';
 
 function App() {
   const [landings, setLandings] = useState([]);//Almacenar fetch de all landings
-  const [items, setItems] = useState([]);//Almacenar fetch de all landings
+  const [items, setItems] = useState([]);//Almacenar all landings para paginar
   const [filter, setFilter] = useState("");//almacena el parametro para filtrar
   const [apod, setApod] = useState([]);//almacena el apod
-  const url = "https://api.nasa.gov/planetary/apod?api_key=";
+  const url = "https://api.nasa.gov/planetary/apod?api_key=";//URL del fetch para obtener el APOD
   const apiKey = process.env.REACT_APP_API_KEY
 
 
@@ -22,6 +22,7 @@ function App() {
     getApod()
   }, [filter])
 
+  //Obtener el APOD
   const getApod = async () => {
     try {
       const { data } = await axios.get(url + apiKey);//fetch a API NASA para obtener el APOD
@@ -35,10 +36,9 @@ function App() {
     }
   }
 
+  //Obtener todas las Landings
   const getLandings = async () => {
     try {
-      //Hacer fetch al back
-      console.log(filter);
       const { data } = await axios.get(`/api/astronomy/landings/${filter}`);
       setLandings(data);
       setItems(data)
