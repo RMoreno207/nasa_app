@@ -35,7 +35,7 @@ function Detail() {
   }
 
   return (
-    <article>
+    <article className="list-none mx-4">
       <h1>{search ? search.name : "..."}</h1>
       <li>ID: {search ? search.id : "..."}</li>
       <li>Mass: {search ? search.mass : "..."}</li>

@@ -42,8 +42,8 @@ function Landing() {
   const map = { "width": "100%", "height": "50vh" };
 
   return (<>
-    <div>
-      <h1>Meteorite Landings</h1>
+    <div className=' mx-10'>
+      <h1 className=' text-lg text-white font-bold  text-center'>Meteorite Landings</h1>
       <p>
         This comprehensive data set from The Meteoritical Society contains information on all of the known meteorite landings. The Fusion Table is collected by Javier de la Torre and we've also provided an XLS file that consists of 34,513 meteorites and includes the following fields:
       </p><p>
@@ -54,20 +54,20 @@ function Landing() {
 
     </div>
     <div>
-      <h2>Filters</h2>
+      <h2 className=' text-lg text-white font-bold  text-center'>Filters</h2>
       <form >
         <div >
-          <button className="button1" onClick={handleDeleteFilters}>Delete filters</button>
+          <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" onClick={handleDeleteFilters}>Delete filters</button>
         </div>
         <div >
-          <label htmlFor="searchMass">Search landing by mass</label>
+          <label htmlFor="searchMass" className='mx-4'>Search landing by mass</label>
           <input type="text" name="byMass" ref={byMass} placeholder="landing mass" />
-          <button className="button1" type='submit' onClick={handleMass}>Search landing</button>
+          <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" type='submit' onClick={handleMass}>Search landing</button>
         </div>
         <div >
-          <label htmlFor="searchClass">Search landing by class</label>
+          <label htmlFor="searchClass" className='mx-4'>Search landing by class</label>
           <input type="text" name="byClass" ref={byClass} placeholder="landing class" />
-          <button className="button1" onClick={handleClass} > Search landing</button>
+          <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" onClick={handleClass} > Search landing</button>
         </div>
       </form>
     </div >

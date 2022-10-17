@@ -126,19 +126,19 @@ function LandingList() {
   }
 
   return (
-    <div>
+    <div className='mx-5'>
       {/* Valores por defecto en el formulario para facilitar la creacion */}
       {setValue("latitude", "37.41667")}
       {setValue("longitude", "-6")}
       {setValue("reclat", "37.41667")}
       {setValue("reclong", "-6")}
 
-      <h1>Registra un nuevo Landing</h1>
+      <h1 className=' text-lg text-white font-bold  text-center'>Registra un nuevo Landing</h1>
       <form onSubmit={handleSubmit(createItem)}>
-        <fieldset>
+        <fieldset >
           <div>
             <label id="id">ID</label>
-            <input
+            <input className="w-full"
               id="outlined-basic"
               label="id"
               variant="outlined"
@@ -151,7 +151,7 @@ function LandingList() {
           </div>
           <div>
             <label id="name">Nombre</label>
-            <input
+            <input className="w-full"
               id="outlined-basic"
               label="name"
               variant="outlined"
@@ -178,7 +178,7 @@ function LandingList() {
           </div>
           <div>
             <label id="recclass">Recclass</label>
-            <input
+            <input className="w-full"
               id="outlined-basic"
               label="recclass"
               variant="outlined"
@@ -191,7 +191,7 @@ function LandingList() {
           </div>
           <div>
             <label id="mass">Masa (g)</label>
-            <input
+            <input className="w-full"
               id="outlined-basic"
               label="mass"
               variant="outlined"
@@ -203,7 +203,7 @@ function LandingList() {
             <p>{errors.mass?.message}</p>
           </div>
           <div>
-            <input
+            <input className="w-full"
               id="outlined-basic"
               label="fall"
 
@@ -216,7 +216,7 @@ function LandingList() {
           </div>
           <div>
             <label id="year">Fecha</label>
-            <input
+            <input className="w-full"
               id="outlined-basic"
               label="year"
               variant="outlined"
@@ -229,7 +229,7 @@ function LandingList() {
           </div>
           <div>
             <label id="reclat">reclat</label>
-            <input
+            <input className="w-full"
               id="outlined-basic"
               label="reclat"
               variant="outlined"
@@ -242,7 +242,7 @@ function LandingList() {
           </div>
           <div>
             <label id="reclong">reclong</label>
-            <input
+            <input className="w-full"
               id="outlined-basic"
               label="reclong"
               variant="outlined"
@@ -256,7 +256,7 @@ function LandingList() {
           <div>
             <label >Localizacion</label><br></br>
             <label>Latitud</label>
-            <input
+            <input className="w-full"
               id="outlined-basic"
               label="latitude"
               variant="outlined"
@@ -267,7 +267,7 @@ function LandingList() {
             />
             <p>{errors.name?.message}</p>
             <label>Longitud</label>
-            <input
+            <input className="w-full"
               id="outlined-basic"
               label="longitude"
               variant="outlined"
@@ -287,23 +287,25 @@ function LandingList() {
         </fieldset>
       </form>
       <hr></hr>
-      <h1>Listado de todos los Landings registrados</h1>
+      <h1 className=' text-lg text-white font-bold  text-center'>Listado de todos los Landings registrados</h1>
       <div >
-        <button className="button1" onClick={handleDeleteFilters}>Delete filters</button>
+        <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" onClick={handleDeleteFilters}>Delete filters</button>
       </div>
       <div >
-        <label htmlFor="searchMass">Search landing by name</label>
+        <label htmlFor="searchMass" className=' text-lg text-white font-bold  text-center'>Search landing by name</label>
         <input type="text" name="byName" ref={byName} placeholder="landing name" />
-        <button className="button1" type='submit' onClick={handleName}>Search landing</button>
+        <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" type='submit' onClick={handleName}>Search landing</button>
       </div>
-      <div >
-        <button className="button1" onClick={handleSortByName}>Sort by name</button>
-      </div>
-      <div >
-        <button className="button1" onClick={handleSortByDate}>Sort by date</button>
-      </div>
-      <div >
-        <button className="button1" onClick={handleSortByMass}>Sort by mass</button>
+      <div>
+        <div >
+          <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" onClick={handleSortByName}>Sort by name</button>
+        </div>
+        <div >
+          <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" onClick={handleSortByDate}>Sort by date</button>
+        </div>
+        <div >
+          <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" onClick={handleSortByMass}>Sort by mass</button>
+        </div>
       </div>
       {/* Renderizamos el componente List si el estado de landings no esta vacio */}
       {landings.length > 0 ? <List /> : "Loading..."}

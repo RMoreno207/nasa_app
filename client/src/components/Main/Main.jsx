@@ -8,7 +8,7 @@ import Detail from "./Landing/Detail/Detail";
 
 
 function Main() {
-  return <main className="main">
+  return <main className="main bg-gray-600 min-h-[80vh]">
     <Routes>
       <Route element={<Home />} path="/" />
       <Route element={<Landing />} path="/landing" />

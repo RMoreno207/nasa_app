@@ -28,7 +28,8 @@ function App() {
       const { data } = await axios.get(url + apiKey);//fetch a API NASA para obtener el APOD
       const dataFilter = {
         url: data.hdurl,
-        title: data.title
+        title: data.title,
+        explanation: data.explanation
       }
       setApod(dataFilter);
     } catch (error) {
@@ -61,7 +62,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App min-h-screen bg-black text-white">
       <landingsContext.Provider value={data}>
         <BrowserRouter>
           <Header />

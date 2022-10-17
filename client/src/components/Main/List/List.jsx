@@ -33,7 +33,7 @@ function List() {
 
 
   return (
-    <section>
+    <section className='list-none'>
       {/* Mandamos lalista de items paginada si no esta vacia */}
       {items.length > 0 ? items
         .slice(pagesVisited, pagesVisited + itemsPerPage)
