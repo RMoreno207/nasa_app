@@ -289,22 +289,22 @@ function LandingList() {
       <hr></hr>
       <h1 className=' text-lg text-white font-bold  text-center'>Listado de todos los Landings registrados</h1>
       <div >
-        <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" onClick={handleDeleteFilters}>Delete filters</button>
+        <button className="button1 bg-black border-2 mx-4 rounded-xl p-1" onClick={handleDeleteFilters}>Delete filters</button>
       </div>
       <div >
         <label htmlFor="searchMass" className=' text-lg text-white font-bold  text-center'>Search landing by name</label>
         <input type="text" name="byName" ref={byName} placeholder="landing name" />
-        <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" type='submit' onClick={handleName}>Search landing</button>
+        <button className="button1 bg-black border-2 mx-4 rounded-xl p-1" type='submit' onClick={handleName}>Search landing</button>
       </div>
       <div>
         <div >
-          <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" onClick={handleSortByName}>Sort by name</button>
+          <button className="button1 bg-black border-2 mx-4 rounded-xl p-1" onClick={handleSortByName}>Sort by name</button>
         </div>
         <div >
-          <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" onClick={handleSortByDate}>Sort by date</button>
+          <button className="button1 bg-black border-2 mx-4 rounded-xl p-1" onClick={handleSortByDate}>Sort by date</button>
         </div>
         <div >
-          <button className="button1 bg-black border-2 mx-4 rounded-xl p-2" onClick={handleSortByMass}>Sort by mass</button>
+          <button className="button1 bg-black border-2 mx-4 rounded-xl p-1" onClick={handleSortByMass}>Sort by mass</button>
         </div>
       </div>
       {/* Renderizamos el componente List si el estado de landings no esta vacio */}

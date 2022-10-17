@@ -36,7 +36,7 @@ function Detail() {
 
   return (
     <article className="list-none mx-4">
-      <h1>{search ? search.name : "..."}</h1>
+      <h1 className=" text-xl">{search ? search.name : "..."}</h1>
       <li>ID: {search ? search.id : "..."}</li>
       <li>Mass: {search ? search.mass : "..."}</li>
       <li>Recclass: {search ? search.recclass : "..."}</li>
@@ -46,7 +46,7 @@ function Detail() {
       <li>Longitude: {search ? search.geolocation.longitude : "..."}</li>
       <li>Latitude: {search ? search.geolocation.latitude : "..."}</li>
 
-      <Link to={'/landing/list'}><button>Volver</button></Link>
+      <Link to={'/landing/list'}><button className="button1 bg-black border-2 mx-4 rounded-xl p-1">Volver</button></Link>
       <div>
         <MapContainer style={map} center={[51.505, -0.09]} zoom={1} scrollWheelZoom={true}>
           <TileLayer
