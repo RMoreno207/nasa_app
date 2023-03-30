@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RMoreno207/nasa_app.git"
+    "url": "git+https://github.com/RMorenoDev/nasa_app.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RMoreno207/nasa_app/issues"
+    "url": "https://github.com/RMorenoDev/nasa_app/issues"
   },
-  "homepage": "https://github.com/RMoreno207/nasa_app#readme",
+  "homepage": "https://github.com/RMorenoDev/nasa_app#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
