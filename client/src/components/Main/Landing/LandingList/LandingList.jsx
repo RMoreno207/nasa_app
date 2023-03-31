@@ -115,7 +115,7 @@ function LandingList() {
       }
     }
     try {
-      await axios.post('/api/astronomy/landings/create', refactorData)
+      await axios.post('https://nasa-app-one.vercel.app/api/astronomy/landings/create', refactorData)
       setLandings([...landings, refactorData])
       setItems([...items, refactorData])
       alert("Landing creado con exito!")

@@ -39,7 +39,9 @@ function App() {
   //Obtener todas las Landings
   const getLandings = async () => {
     try {
-      const { data } = await axios.get(`/api/astronomy/landings/${filter}`);
+      const { data } = await axios.get(
+        `https://nasa-app-one.vercel.app/api/astronomy/landings/${filter}`
+      );
       setLandings(data);
       setItems(data);
     } catch (error) {
