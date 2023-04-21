@@ -13,16 +13,17 @@ const landingsRouter = require("./routes/landingsRoutes");
 const neasRouter = require("./routes/neasRoutes");
 const usersRouter = require("./routes/usersRoutes");
 
-var corsOptions = {
-  origin: [
-    "https://nasa-app-front-9lgvhuclp-rmorenodev.vercel.app",
-    "http://localhost:3000",
-  ],
-  credentials: true,
-};
+// var corsOptions = {
+//   origin: [
+//     "https://nasa-app-front-9lgvhuclp-rmorenodev.vercel.app",
+//     "http://localhost:3000",
+//   ],
+//   credentials: true,
+// };
 
 //Read body request
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json()); // Para habilitar recepción de datos JSON en una request
 app.use(express.urlencoded({ extended: true }));
 // Serve the static files from the React app
