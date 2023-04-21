@@ -34,14 +34,14 @@ app.use("/api/astronomy/neas", neasRouter);
 app.use("/api/users", usersRouter);
 const loggerFormat =
   ":method :url :status :response-time ms - :res[content-length]";
-app.use(
-  morgan(loggerFormat, {
-    skip: function (req, res) {
-      return res.statusCode < 400;
-    },
-    stream: process.stderr,
-  })
-);
+// app.use(
+//   morgan(loggerFormat, {
+//     skip: function (req, res) {
+//       return res.statusCode < 400;
+//     },
+//     stream: process.stderr,
+//   })
+// );
 
 // Handles any requests that don't match the ones above
 app.get("*", (req, res) => {
