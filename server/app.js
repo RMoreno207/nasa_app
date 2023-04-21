@@ -14,7 +14,10 @@ const neasRouter = require("./routes/neasRoutes");
 const usersRouter = require("./routes/usersRoutes");
 
 var corsOptions = {
-  origin: ["https://nasa-app-one.vercel.app", "http://localhost:3000"],
+  origin: [
+    "https://nasa-app-front-9lgvhuclp-rmorenodev.vercel.app",
+    "http://localhost:3000",
+  ],
   credentials: true,
 };
 
