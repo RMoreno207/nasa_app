@@ -27,7 +27,7 @@ function Detail() {
   //Obtener los detalles del landing
   const itemDetails = async () => {
     try {
-      const { data } = await axios.get(`https://nasa-app-one.vercel.app/api/astronomy/landings/?id=${searchId}`);
+      const { data } = await axios.get(`https://nasa-py8lnjxon-rmorenodev.vercel.app/api/astronomy/landings/?id=${searchId}`);
       setSearch(...data)
     } catch (error) {
       console.log(error);

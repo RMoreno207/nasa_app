@@ -40,7 +40,7 @@ function App() {
   const getLandings = async () => {
     try {
       const { data } = await axios.get(
-        `https://nasa-5zieimr69-rmorenodev.vercel.app/api/astronomy/landings/${filter}`
+        `https://nasa-py8lnjxon-rmorenodev.vercel.app/api/astronomy/landings/${filter}`
       );
       setLandings(data);
       setItems(data);
