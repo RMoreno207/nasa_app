@@ -1,7 +1,7 @@
 const express = require("express");
 // const path = require("path");
 // const morgan = require("morgan");
-// const cors = require("cors");
+const cors = require("cors");
 const app = express();
 
 //Configurations
@@ -62,18 +62,8 @@ app.use((err, req, res, next) => {
 //Read body request
 // app.use(cors(corsOptions));
 // Configurar cabeceras y cors
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-  res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
-  next();
-});
 
-// app.use(cors());
+app.use(cors());
 // app.use(express.json()); // Para habilitar recepción de datos JSON en una request
 // app.use(express.urlencoded({ extended: true }));
 // // Serve the static files from the React app
