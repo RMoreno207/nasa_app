@@ -5,8 +5,8 @@ const cors = require("cors");
 const app = express();
 
 //Middleware 404
-// const manage404 = require('./middlewares/error404');
-// app.use(manage404);
+const manage404 = require("./middlewares/error404");
+app.use(manage404);
 
 //Router
 const landingsRouter = require("./routes/landingsRoutes");
