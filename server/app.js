@@ -4,14 +4,47 @@ const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
 
-//Middleware 404
-const manage404 = require("./middlewares/error404");
+//Configurations
+const port = process.env.PORT || 5000;
+app.listen(port);
+
+console.log("App is listening on port " + port);
+
+//Middlewares
+//404
+const manage404 = require("server/middlewares/error404.js");
 app.use(manage404);
 
 //Router
 const landingsRouter = require("./routes/landingsRoutes");
 const neasRouter = require("./routes/neasRoutes");
 const usersRouter = require("./routes/usersRoutes");
+
+//Rutes
+//API
+app.use("/api/astronomy/landings", landingsRouter);
+app.use("/api/astronomy/neas", neasRouter);
+app.use("/api/users", usersRouter);
+const loggerFormat =
+  ":method :url :status :response-time ms - :res[content-length]";
+// app.use(
+//   morgan(loggerFormat, {
+//     skip: function (req, res) {
+//       return res.statusCode < 400;
+//     },
+//     stream: process.stderr,
+//   })
+// );
+
+//"/"
+app.get("/", (req, res) => {
+  res.send("Hola, mundo!");
+});
+
+// Handles any requests that don't match the ones above
+app.get("*", (req, res) => {
+  res.send("Ruta no encontrada");
+});
 
 // var corsOptions = {
 //   origin: [
@@ -28,33 +61,3 @@ app.use(express.json()); // Para habilitar recepción de datos JSON en una reque
 app.use(express.urlencoded({ extended: true }));
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, "client/build")));
-
-//Rutas
-app.use("/api/astronomy/landings", landingsRouter);
-app.use("/api/astronomy/neas", neasRouter);
-app.use("/api/users", usersRouter);
-const loggerFormat =
-  ":method :url :status :response-time ms - :res[content-length]";
-// app.use(
-//   morgan(loggerFormat, {
-//     skip: function (req, res) {
-//       return res.statusCode < 400;
-//     },
-//     stream: process.stderr,
-//   })
-// );
-
-//Ruta "/"
-app.get("/", (req, res) => {
-  res.send("Hola, mundo!");
-});
-
-// Handles any requests that don't match the ones above
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
-
-const port = process.env.PORT || 5000;
-app.listen(port);
-
-console.log("App is listening on port " + port);
