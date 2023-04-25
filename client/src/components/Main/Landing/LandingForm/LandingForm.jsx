@@ -15,6 +15,7 @@ function LandingForm(props) {
   const [search, setSearch] = useState();//Almacena los detalles del landing
   const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate();
+  const urlApi = "https://nasa-app-api-seven.vercel.app";
 
   function toRedirect() {
     navigate('/landing/list');
@@ -23,7 +24,7 @@ function LandingForm(props) {
   //Obtener los detalles del landing
   const itemDetails = async () => {
     try {
-      const { data } = await axios.get(`https://nasa-py8lnjxon-rmorenodev.vercel.app/api/astronomy/landings/?id=${searchId}`);
+      const { data } = await axios.get(`${urlApi}/api/astronomy/landings/?id=${searchId}`);
       setSearch(...data)
     } catch (error) {
       console.log(error);
@@ -64,7 +65,7 @@ function LandingForm(props) {
       await setItems([...remainingLandings, refactorData]);//Guardamos el nuevo listado en Items para que se actualice la lista renderizada
       setRedirect(true);
       alert("Landing editada con exito!")
-      await axios.put('https://nasa-py8lnjxon-rmorenodev.vercel.app/api/astronomy/landings/edit', refactorData);
+      await axios.put(`${urlApi}/api/astronomy/landings/edit`, refactorData);
     } catch (error) {
       console.log(error, "No se ha podido editar el landing")
     }

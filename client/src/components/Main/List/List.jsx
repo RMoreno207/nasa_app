@@ -10,6 +10,7 @@ import axios from 'axios';
 function List() {
   const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
   const { items, setItems } = useContext(landingsContext);//Recoge los datos a mostrar
+  const urlApi = "https://nasa-app-api-seven.vercel.app";
 
   const [pageNumber, setPageNumber] = useState(0);//Para paginacion
   const itemsPerPage = 5;//Numero de items a mostrar en cada pagina
@@ -25,7 +26,7 @@ function List() {
       setLandings(remainingLandings);//Guardamos el nuevo listado en Landings
       setItems(remainingLandings);//Guardamos el nuevo listado en Items para que se actualice la lista renderizada
       alert("Landing borrada correctamente");
-      await axios.delete(`https://nasa-app-one.vercel.app/api/astronomy/landings/delete/${id}`)//Borramos la landing de la base de datos
+      await axios.delete(`${urlApi}/api/astronomy/landings/delete/${id}`)//Borramos la landing de la base de datos
     } catch (error) {
       throw error
     }

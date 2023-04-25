@@ -10,7 +10,7 @@ function Detail() {
   const params = useParams();// Para poder usar los parametros capturados por el router
   const [search, setSearch] = useState();
   const [searchId] = useState(params.id);//Creo variable de estado local para almacenar la ID
-
+  const urlApi = "https://nasa-app-api-seven.vercel.app";
 
   useEffect(() => {
     itemDetails()//Lanzamos la busqueda
@@ -27,7 +27,7 @@ function Detail() {
   //Obtener los detalles del landing
   const itemDetails = async () => {
     try {
-      const { data } = await axios.get(`https://nasa-py8lnjxon-rmorenodev.vercel.app/api/astronomy/landings/?id=${searchId}`);
+      const { data } = await axios.get(`${urlApi}/api/astronomy/landings/?id=${searchId}`);
       setSearch(...data)
     } catch (error) {
       console.log(error);

@@ -15,6 +15,7 @@ function App() {
   const [apod, setApod] = useState([]); //almacena el apod
   const url = "https://api.nasa.gov/planetary/apod?api_key="; //URL del fetch para obtener el APOD
   const apiKey = process.env.REACT_APP_API_KEY;
+  const urlApi = "https://nasa-app-api-seven.vercel.app";
 
   useEffect(() => {
     getLandings();
@@ -40,7 +41,7 @@ function App() {
   const getLandings = async () => {
     try {
       const { data } = await axios.get(
-        `https://nasa-app-one.vercel.app/api/astronomy/landings/${filter}`
+        `${urlApi}/api/astronomy/landings/${filter}`
       );
       setLandings(data);
       setItems(data);

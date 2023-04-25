@@ -14,7 +14,7 @@ function LandingList() {
   const [sortMass, setSortMass] = useState(false);//Estado ordenar por masa ascendente o descendente
   const [sortDate, setSortDate] = useState(false);//Estado ordenar por fecha ascendente o descendente
   const byName = useRef();//useRef se usa como getElementById
-
+  const urlApi = "https://nasa-app-api-seven.vercel.app";
 
   useEffect(() => {
     if (isSubmitSuccessful) {//Para resetear todos los input al crear un landing
@@ -115,7 +115,7 @@ function LandingList() {
       }
     }
     try {
-      await axios.post('https://nasa-py8lnjxon-rmorenodev.vercel.app/api/astronomy/landings/create', refactorData)
+      await axios.post(`${urlApi}/api/astronomy/landings/create`, refactorData)
       setLandings([...landings, refactorData])
       setItems([...items, refactorData])
       alert("Landing creado con exito!")
