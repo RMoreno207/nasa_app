@@ -45,6 +45,7 @@ function App() {
       );
       setLandings(data);
       setItems(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
