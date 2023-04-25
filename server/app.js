@@ -1,18 +1,15 @@
 const express = require("express");
 const path = require("path");
 const morgan = require("morgan");
-const cors = require("cors");
+// const cors = require("cors");
 const app = express();
 
 //Configurations
 const port = process.env.PORT || 5000;
-app.listen(port);
-
-console.log("App is listening on port " + port);
 
 //Middlewares
 //404
-const manage404 = require("server/middlewares/error404.js");
+const manage404 = require("./server/middlewares/error404.js");
 app.use(manage404);
 
 //Router
@@ -56,8 +53,12 @@ app.get("*", (req, res) => {
 
 //Read body request
 // app.use(cors(corsOptions));
-app.use(cors());
-app.use(express.json()); // Para habilitar recepción de datos JSON en una request
-app.use(express.urlencoded({ extended: true }));
-// Serve the static files from the React app
-app.use(express.static(path.join(__dirname, "client/build")));
+// app.use(cors());
+// app.use(express.json()); // Para habilitar recepción de datos JSON en una request
+// app.use(express.urlencoded({ extended: true }));
+// // Serve the static files from the React app
+// app.use(express.static(path.join(__dirname, "client/build")));
+
+//Init server
+app.listen(port);
+console.log("App is listening on port " + port);
