@@ -10,7 +10,6 @@
     {
       "src": "/.*",
       "dest": "/app.js",
-      "source": "/api/*",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
