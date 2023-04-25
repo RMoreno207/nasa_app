@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 
 //Middlewares
 //404
-const manage404 = require("./server/middlewares/error404.js");
+const manage404 = require("/middlewares/error404.js");
 app.use(manage404);
 
 //Router
