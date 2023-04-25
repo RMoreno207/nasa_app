@@ -1,7 +1,7 @@
 const express = require("express");
 // const path = require("path");
 // const morgan = require("morgan");
-const cors = require("cors");
+// const cors = require("cors");
 const app = express();
 
 //Configurations
@@ -54,7 +54,7 @@ app.get("*", (req, res) => {
 
 //Read body request
 // app.use(cors(corsOptions));
-app.use(cors());
+// app.use(cors());
 // app.use(express.json()); // Para habilitar recepción de datos JSON en una request
 // app.use(express.urlencoded({ extended: true }));
 // // Serve the static files from the React app
