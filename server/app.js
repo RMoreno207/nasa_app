@@ -13,6 +13,23 @@ app.set("port", process.env.PORT || 80);
 // const manage404 = require("/middlewares/error404.js");
 // app.use(manage404);
 
+//Errors
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Content-Length, X-Requested-With"
+  );
+
+  // intercept OPTIONS method
+  if ("OPTIONS" === req.method) {
+    res.send(200);
+  } else {
+    next();
+  }
+});
+
 //Router
 const landingsRouter = require("./routes/landingsRoutes");
 const neasRouter = require("./routes/neasRoutes");
@@ -43,23 +60,6 @@ app.get("/", (req, res) => {
 // Handles any requests that don't match the ones above
 app.get("*", (req, res) => {
   res.send("Ruta no encontrada");
-});
-
-//Errors
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
-  );
-
-  // intercept OPTIONS method
-  if ("OPTIONS" === req.method) {
-    res.send(200);
-  } else {
-    next();
-  }
 });
 
 // var corsOptions = {
