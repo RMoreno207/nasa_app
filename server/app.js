@@ -1,6 +1,6 @@
 const express = require("express");
-const path = require("path");
-const morgan = require("morgan");
+// const path = require("path");
+// const morgan = require("morgan");
 // const cors = require("cors");
 const app = express();
 
@@ -9,8 +9,8 @@ const port = process.env.PORT || 5000;
 
 //Middlewares
 //404
-const manage404 = require("/middlewares/error404.js");
-app.use(manage404);
+// const manage404 = require("/middlewares/error404.js");
+// app.use(manage404);
 
 //Router
 const landingsRouter = require("./routes/landingsRoutes");
@@ -22,8 +22,9 @@ const usersRouter = require("./routes/usersRoutes");
 app.use("/api/astronomy/landings", landingsRouter);
 app.use("/api/astronomy/neas", neasRouter);
 app.use("/api/users", usersRouter);
-const loggerFormat =
-  ":method :url :status :response-time ms - :res[content-length]";
+
+// const loggerFormat =
+//   ":method :url :status :response-time ms - :res[content-length]";
 // app.use(
 //   morgan(loggerFormat, {
 //     skip: function (req, res) {
