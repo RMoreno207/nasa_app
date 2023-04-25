@@ -84,6 +84,7 @@ function LandingForm(props) {
       {search ? setValue("year", search.year) : "..."}
 
       {search ? <form onSubmit={handleSubmit(editItem)}>
+      <h1 className=' text-lg text-white font-bold  text-center'>Formulario de ediciónLanding</h1>
         <fieldset className="mx-4" >
           <div>
             <input
@@ -97,7 +98,7 @@ function LandingForm(props) {
           </div>
           <div>
             <label id="name">Nombre</label>
-            <input className="w-full"
+            <input className="w-full text-black"
               autoFocus="true"
               id="outlined-basic"
               label="name"
@@ -122,7 +123,7 @@ function LandingForm(props) {
           </div>
           <div>
             <label id="recclass">Recclass</label>
-            <input className="w-full"
+            <input className="w-full text-black"
               id="outlined-basic"
               label="recclass"
               variant="outlined"
@@ -134,7 +135,7 @@ function LandingForm(props) {
           </div>
           <div>
             <label id="mass">Masa (g)</label>
-            <input className="w-full"
+            <input className="w-full text-black"
               id="outlined-basic"
               label="mass"
               variant="outlined"
@@ -145,7 +146,7 @@ function LandingForm(props) {
             <p>{errors.mass?.message}</p>
           </div>
           <div>
-            <input className="w-full"
+            <input className="w-full text-black"
               id="outlined-basic"
               label="fall"
 
@@ -158,7 +159,7 @@ function LandingForm(props) {
           </div>
           <div>
             <label id="year">Fecha</label>
-            <input className="w-full"
+            <input className="w-full text-black"
               id="outlined-basic"
               label="year"
               variant="outlined"
@@ -170,7 +171,7 @@ function LandingForm(props) {
           </div>
           <div>
             <label id="reclat">reclat</label>
-            <input className="w-full"
+            <input className="w-full text-black"
               id="outlined-basic"
               label="reclat"
               variant="outlined"
@@ -182,7 +183,7 @@ function LandingForm(props) {
           </div>
           <div>
             <label id="reclong">reclong</label>
-            <input className="w-full"
+            <input className="w-full text-black"
               id="outlined-basic"
               label="reclong"
               variant="outlined"
@@ -194,7 +195,7 @@ function LandingForm(props) {
           </div>
           <div>
             <label>Latitud</label>
-            <input className="w-full"
+            <input className="w-full text-black"
               id="outlined-basic"
               label="latitude"
               variant="outlined"
@@ -204,7 +205,7 @@ function LandingForm(props) {
             />
             <p>{errors.name?.message}</p>
             <label>Longitud</label>
-            <input className="w-full"
+            <input className="w-full text-black"
               id="outlined-basic"
               label="longitude"
               variant="outlined"

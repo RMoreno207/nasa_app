@@ -2,7 +2,7 @@ const landingSchema = require("../schemas/landingsSchemas.js");
 
 const getAllLandings = async () => {
   try {
-    const getAllLandings = await landingSchema.find({}, "-_id").limit(100);
+    const getAllLandings = await landingSchema.find({}, "-_id");
     return getAllLandings;
   } catch (error) {
     console.log(`ERROR: ${error.stack}`);
