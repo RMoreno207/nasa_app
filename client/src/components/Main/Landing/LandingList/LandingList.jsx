@@ -8,13 +8,14 @@ import { landingsContext } from '../../../../context/landingsContext';
 
 function LandingList() {
   const { register, setValue, reset, handleSubmit, formState, formState: { errors, isSubmitSuccessful } } = useForm();
-  const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
-  const { items, setItems } = useContext(landingsContext);//Almacenar fetch de all landings para paginar
+  const { landings, setLandings, items, setItems } = useContext(landingsContext);//Almacenar fetch de all landings
+  // const { items, setItems } = useContext(landingsContext);//Almacenar fetch de all landings para paginar
   const [sortName, setSortName] = useState(true); //Estado ordenar por nombre ascendente o descendente
   const [sortMass, setSortMass] = useState(false);//Estado ordenar por masa ascendente o descendente
   const [sortDate, setSortDate] = useState(false);//Estado ordenar por fecha ascendente o descendente
   const byName = useRef();//useRef se usa como getElementById
   const urlApi = "https://nasa-app-api-seven.vercel.app";
+
 
   useEffect(() => {
     if (isSubmitSuccessful) {//Para resetear todos los input al crear un landing
