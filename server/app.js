@@ -5,7 +5,8 @@ const cors = require("cors");
 const app = express();
 
 //Configurations
-const port = process.env.PORT || 5000;
+app.set("port", process.env.PORT || 5000);
+// const port = process.env.PORT || 5000;
 
 //Middlewares
 //404
@@ -44,6 +45,12 @@ app.get("*", (req, res) => {
   res.send("Ruta no encontrada");
 });
 
+//Errors
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Algo salió mal!");
+});
+
 // var corsOptions = {
 //   origin: [
 //     "https://nasa-app-front-9lgvhuclp-rmorenodev.vercel.app",
@@ -61,5 +68,6 @@ app.use(cors());
 // app.use(express.static(path.join(__dirname, "client/build")));
 
 //Init server
-app.listen(port);
-console.log("App is listening on port " + port);
+app.listen(app.get("port"), () => {
+  console.log(`Servidor corriendo en el puerto ${app.get("port")}`);
+});
