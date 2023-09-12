@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { landingsContext } from "../../../context/landingsContext";
 import './Home.css'
 import { useContext } from "react";
@@ -7,12 +7,13 @@ import { useState} from "react";
 
 function Home() {
   const { apod } = useContext(landingsContext); //Traer la url del APOD
-  const text= apod.explanation;
   const [expanded, setExpanded]=useState(false);
 
   const toggleExpansion=()=>{
     setExpanded(!expanded);
   }
+
+  const text = apod && apod.explanation ? apod.explanation : '';
 
   return (
     <div className=" text-center relative " >
@@ -24,10 +25,17 @@ function Home() {
 
 
       <div>
-        {expanded ? (
-          <p>{text}</p>
-        ) : (
-          <p>{text.slice(0, 100)}...</p> // Display the first 100 characters and add "..."
+        {
+        !expanded 
+        ? (
+        apod 
+        ? (
+        <p>{text.slice(0, 100)}...</p>
+        ):(
+        <p>...</p>
+        )
+        ):(
+        <p>{text}</p>
         )}
       </div>
       <button onClick={toggleExpansion}>
