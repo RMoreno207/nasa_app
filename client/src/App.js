@@ -6,20 +6,23 @@ import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
 import { landingsContext } from "./context/landingsContext";
 import axios from "axios";
-//hello
 
 function App() {
   const [landings, setLandings] = useState([]); //Almacenar fetch de all landings
   const [items, setItems] = useState([]); //Almacenar all landings para paginar
   const [filter, setFilter] = useState(""); //almacena el parametro para filtrar
   const [apod, setApod] = useState([]); //almacena el apod
+
   const url = "https://api.nasa.gov/planetary/apod?api_key="; //URL del fetch para obtener el APOD
   const apiKey = process.env.REACT_APP_API_KEY;
   const urlApi = "https://nasa-app-api-seven.vercel.app";
 
   useEffect(() => {
-    getLandings();
     getApod();
+  });
+
+  useEffect(() => {
+    getLandings();
   }, [filter]);
 
   //Obtener el APOD

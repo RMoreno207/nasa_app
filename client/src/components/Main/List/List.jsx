@@ -40,16 +40,40 @@ function List() {
         .slice(pagesVisited, pagesVisited + itemsPerPage)
         .map((item, i) => <Card key={uuidv4()} index={i} value={item} delete={() => deleteItem(item.id)} />) : "Loading..."}
       {/* Indice de las paginas */}
+      
+
+
+      <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: 20,
+        boxSizing: 'border-box',
+        width: '100%',
+        height: '100%',
+      }}
+    >
       <ReactPaginate
-        previousLabel={"Previous"}
+        activeClassName={'item active '}
+        breakClassName={'item break-me mx-5'}
+        breakLabel={'...'}
+        containerClassName={'pagination w-100 h-100 flex items-center justify-center'}
+        disabledClassName={'disabled-page'}
+        marginPagesDisplayed={2}
         nextLabel={"Next"}
+        nextClassName={"item next  ml-3 "}
+        previousLabel={"Previous"}
+        previousClassName={"item previous mr-3"}
+        onPageChange={() => null}
         pageCount={pageCount}
-        onPageChange={changePage}
-        containerClassName={"paginationBttns"}
-        nextLinkClassName={"nextBttn"}
-        disabledClassName={"paginationDisabled"}
-        activeClassName={"paginationActive"}
+        pageClassName={'item pagination-page mx-2'}
+        pageRangeDisplayed={2}
+        
       />
+    </div>
+
+
     </section>
   )
 }

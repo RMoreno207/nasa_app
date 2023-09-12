@@ -12,6 +12,7 @@ function Detail() {
   const [searchId] = useState(params.id);//Creo variable de estado local para almacenar la ID
   const urlApi = "https://nasa-app-api-seven.vercel.app";
 
+
   useEffect(() => {
     itemDetails()//Lanzamos la busqueda
   }, []
@@ -46,7 +47,7 @@ function Detail() {
       <li>Longitude: {search ? search.geolocation.longitude : "..."}</li>
       <li>Latitude: {search ? search.geolocation.latitude : "..."}</li>
 
-      <Link to={'/landing/list'}><button className="button1 bg-black border-2 mx-4 rounded-xl p-1">Volver</button></Link>
+      <Link to={'/landing/list'}><button className="button1 bg-black mx-4 rounded p-3 m-4">Volver</button></Link>
       <div>
         <MapContainer style={map} center={[51.505, -0.09]} zoom={1} scrollWheelZoom={true}>
           <TileLayer

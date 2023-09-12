@@ -3,7 +3,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="footer min-h-[10hv]">Developed by @RMoreno207</footer>
+    <footer className="footer min-h-[10hv]">Developed by @RMorenoDev</footer>
   )
 }
 

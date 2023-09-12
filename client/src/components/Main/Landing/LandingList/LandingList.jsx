@@ -15,6 +15,8 @@ function LandingList() {
   const [sortDate, setSortDate] = useState(false);//Estado ordenar por fecha ascendente o descendente
   const byName = useRef();//useRef se usa como getElementById
   const urlApi = "https://nasa-app-api-seven.vercel.app";
+  const [expanded, setExpanded]=useState(false);//Para expandir o contraer el texto de la cabecera
+
 
 
   useEffect(() => {
@@ -26,6 +28,11 @@ function LandingList() {
       });
     }
   }, [formState, items]);
+
+//Boton expandir form
+const toggleExpansion=()=>{
+  setExpanded(!expanded);
+}
 
   //Borrar filtros
   const handleDeleteFilters = () => {
@@ -126,8 +133,13 @@ function LandingList() {
     }
   }
 
+
+
+
+
+
+
   return (
-    // <div><p>Holi</p></div>
     <div className='mx-5'>
       {/* Valores por defecto en el formulario para facilitar la creacion */}
       {/* {setValue("latitude", "37.41667")}
@@ -135,8 +147,11 @@ function LandingList() {
       {setValue("reclat", "37.41667")}
       {setValue("reclong", "-6")} */}
 
-      <h1 className=' text-lg text-white font-bold  text-center'>Registra un nuevo Landing</h1>
-      <form onSubmit={handleSubmit(createItem)}>
+
+<div>
+<h1 className=' text-lg text-white font-bold  text-center'>Register a new Landing</h1>
+      {expanded ? (
+        <form onSubmit={handleSubmit(createItem)}>
         <fieldset >
           <div>
             <label id="id">ID</label>
@@ -152,7 +167,7 @@ function LandingList() {
             <p>{errors.id?.message}</p>
           </div>
           <div>
-            <label id="name">Nombre</label>
+            <label id="name">Name</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="name"
@@ -192,7 +207,7 @@ function LandingList() {
             <p>{errors.recclass?.message}</p>
           </div>
           <div>
-            <label id="mass">Masa (g)</label>
+            <label id="mass">Mass (g)</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="mass"
@@ -217,7 +232,7 @@ function LandingList() {
             />
           </div>
           <div>
-            <label id="year">Fecha</label>
+            <label id="year">Date</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="year"
@@ -256,8 +271,8 @@ placeholder='-6'
             <p>{errors.reclong?.message}</p>
           </div>
           <div>
-            <label >Localizacion</label><br></br>
-            <label>Latitud</label>
+            <label >Location</label><br></br>
+            <label>Latitude</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="latitude"
@@ -268,7 +283,7 @@ placeholder='-6'
 placeholder='37.41667'
             />
             <p>{errors.name?.message}</p>
-            <label>Longitud</label>
+            <label>Longitude</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="longitude"
@@ -284,31 +299,45 @@ placeholder='37.41667'
 
 
           <div>
-            <button type="submit">Create</button>
+            <button type="submit" className="button1 bg-black mx-4 rounded p-3 m-4">Create</button>
           </div>
         </fieldset>
       </form>
+      ) : null}
+      <button
+        className="button1 bg-black mx-4 rounded p-3 m-4"
+        onClick={toggleExpansion}
+      >
+        {expanded ? 'Hide Form' : 'Show Form'}
+      </button>
+    </div>
+
+
+
+
+
       <hr></hr>
-      <h1 className=' text-lg text-white font-bold  text-center'>Listado de todos los Landings registrados</h1>
+      <br></br>
+      
       <div >
-        <button className="button1 bg-black border-2 mx-4 rounded-xl p-1" onClick={handleDeleteFilters}>Delete filters</button>
-      </div>
-      <div >
-        <label htmlFor="searchMass" className=' text-lg text-white font-bold  text-center'>Search landing by name</label>
-        <input className="w-full text-black" type="text" name="byName" ref={byName} placeholder="landing name" />
-        <button className="button1 bg-black border-2 mx-4 rounded-xl p-1" type='submit' onClick={handleName}>Search landing</button>
+        <label htmlFor="searchMass" className=' text-lg text-white font-bold'>Search landing by name</label>
+        <input className=" text-black" type="text" name="byName" ref={byName} placeholder="landing name" />
+        <button className="button1 bg-black mx-4 rounded p-3 m-4" type='submit' onClick={handleName}>Search landing</button>
       </div>
       <div>
         <div >
-          <button className="button1 bg-black border-2 mx-4 rounded-xl p-1" onClick={handleSortByName}>Sort by name</button>
-        </div>
-        <div >
-          <button className="button1 bg-black border-2 mx-4 rounded-xl p-1" onClick={handleSortByDate}>Sort by date</button>
-        </div>
-        <div >
-          <button className="button1 bg-black border-2 mx-4 rounded-xl p-1" onClick={handleSortByMass}>Sort by mass</button>
+          <button className="button1 text-xs bg-black mx-4 rounded p-1 m-2" onClick={handleSortByName}>Sort by name</button>
+        
+          <button className="button1 text-xs bg-black mx-4 rounded p-1 m-2" onClick={handleSortByDate}>Sort by date</button>
+        
+          <button className="button1 text-xs bg-black mx-4 rounded p-1 m-2" onClick={handleSortByMass}>Sort by mass</button>
         </div>
       </div>
+      <div >
+        <button className="button1 bg-black mx-4 rounded p-3 m-4" onClick={handleDeleteFilters}>Delete filters</button>
+      </div>
+      <h1 className=' text-lg text-white font-bold  text-center m-4'>Listado de todos los Landings registrados</h1>
+      
       {/* Renderizamos el componente List si el estado de landings no esta vacio */}
       {landings.length > 0 ? <List /> : "Loading..."}
     </div>
