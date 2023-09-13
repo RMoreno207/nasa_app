@@ -304,12 +304,14 @@ placeholder='37.41667'
         </fieldset>
       </form>
       ) : null}
+      <div className='flex justify-center items-center'>
       <button
-        className="button1 bg-black mx-4 rounded p-3 m-4"
+        className="button1 bg-black mx-0 rounded p-3 m-4"
         onClick={toggleExpansion}
       >
         {expanded ? 'Hide Form' : 'Show Form'}
       </button>
+      </div>
     </div>
 
 
@@ -319,25 +321,20 @@ placeholder='37.41667'
       <hr></hr>
       <br></br>
       
-      <div >
-        <label htmlFor="searchMass" className=' text-lg text-white font-bold'>Search landing by name</label>
-        <input className=" text-black" type="text" name="byName" ref={byName} placeholder="landing name" />
+      <div>
+        <label htmlFor="searchMass" className='flex justify-center text-lg text-white font-bold'>Search landing by name</label>
+        <div className='flex justify-center'>
+        <input className="m-auto rounded text-black" type="text" name="byName" ref={byName} placeholder="landing name" />
         <button className="button1 bg-black mx-4 rounded p-3 m-4" type='submit' onClick={handleName}>Search landing</button>
       </div>
-      <div>
-        <div >
-          <button className="button1 text-xs bg-black mx-4 rounded p-1 m-2" onClick={handleSortByName}>Sort by name</button>
-        
-          <button className="button1 text-xs bg-black mx-4 rounded p-1 m-2" onClick={handleSortByDate}>Sort by date</button>
-        
-          <button className="button1 text-xs bg-black mx-4 rounded p-1 m-2" onClick={handleSortByMass}>Sort by mass</button>
+      </div>
+           <div className='flex justify-center'>
+          <button className="button1 text-xs bg-black mx-1 rounded p-1 m-auto" onClick={handleSortByName}>Sort by name</button>      
+          <button className="button1 text-xs bg-black mx-1 rounded p-1 m-auto" onClick={handleSortByDate}>Sort by date</button>  
+          <button className="button1 text-xs bg-black mx-1 m-auto rounded p-1" onClick={handleSortByMass}>Sort by mass</button>
+          <button className="button1 bg-black mx-4 rounded p-3 m-4" onClick={handleDeleteFilters}>Delete filters</button>
         </div>
-      </div>
-      <div >
-        <button className="button1 bg-black mx-4 rounded p-3 m-4" onClick={handleDeleteFilters}>Delete filters</button>
-      </div>
-      <h1 className=' text-lg text-white font-bold  text-center m-4'>Listado de todos los Landings registrados</h1>
-      
+        <h1 className=' text-lg text-white font-bold  text-center m-4'>Landing list</h1>
       {/* Renderizamos el componente List si el estado de landings no esta vacio */}
       {landings.length > 0 ? <List /> : "Loading..."}
     </div>

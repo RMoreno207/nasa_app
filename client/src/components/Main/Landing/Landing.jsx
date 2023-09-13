@@ -73,17 +73,17 @@ function Landing() {
     </div>
     <div>
       <h2 className=' text-lg text-white font-bold  text-center'>Filters</h2>
-      <form >
+      <form className='mx-4'>
         
         <div >
-        <button className="button1 bg-black mx-4 rounded p-3 m-4" type='submit' onClick={handleMass}>Search</button>
-          <label htmlFor="searchMass" className='mx-4'>by mass</label>
-          <input className="rounded" type="text" name="byMass" ref={byMass} placeholder="2900" />
+        <button className="button1 bg-black mx-1 ml-4 rounded p-3 m-4" type='submit' onClick={handleMass}>Search</button>
+          <label htmlFor="searchMass" className='mx-1'>by mass</label>
+          <input className="rounded w-32 ml-1" type="text" name="byMass" ref={byMass} placeholder="2900" />
         </div>
         <div >
-        <button className="button1 bg-black mx-4 rounded p-3 m-4" onClick={handleClass} > Search</button>
-          <label htmlFor="searchClass" className='mx-4'>by class</label>
-          <input className="rounded" type="text" name="byClass" ref={byClass} placeholder="L6" />
+        <button className="button1 bg-black mx-1 ml-4 rounded p-3 m-4" onClick={handleClass} > Search</button>
+          <label htmlFor="searchClass" className='mx-1'>by class</label>
+          <input className="rounded w-32 ml-1" type="text" name="byClass" ref={byClass} placeholder="L6" />
         </div>
         <div className='flex justify-center'>
           <button className="button1 bg-black mx-4 rounded p-3 m-4" onClick={handleDeleteFilters}>Delete filters</button>

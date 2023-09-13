@@ -73,18 +73,18 @@ function LandingForm(props) {
 
   return (
     <div>
-      {search ? setValue("latitude", search.geolocation.latitude) : "..."}
-      {search ? setValue("longitude", search.geolocation.longitude) : "..."}
-      {search ? setValue("id", search.id) : "..."}
-      {search ? setValue("mass", search.mass) : "..."}
-      {search ? setValue("name", search.name) : "..."}
-      {search ? setValue("recclass", search.recclass) : "..."}
-      {search ? setValue("reclat", search.reclat) : "..."}
-      {search ? setValue("reclong", search.reclong) : "..."}
-      {search ? setValue("year", search.year) : "..."}
+      {search ? setValue("latitude", search.geolocation.latitude) : null}
+      {search ? setValue("longitude", search.geolocation.longitude) : null}
+      {search ? setValue("id", search.id) : null}
+      {search ? setValue("mass", search.mass) : null}
+      {search ? setValue("name", search.name) : null}
+      {search ? setValue("recclass", search.recclass) : null}
+      {search ? setValue("reclat", search.reclat) : null}
+      {search ? setValue("reclong", search.reclong) : null}
+      {search ? setValue("year", search.year) : null}
 
       {search ? <form onSubmit={handleSubmit(editItem)}>
-      <h1 className=' text-lg text-white font-bold  text-center'>Formulario de ediciónLanding</h1>
+      <h1 className=' text-lg text-white font-bold  text-center'>Landing edition</h1>
         <fieldset className="mx-4" >
           <div>
             <input
@@ -97,7 +97,7 @@ function LandingForm(props) {
             />
           </div>
           <div>
-            <label id="name">Nombre</label>
+            <label id="name">Name</label>
             <input className="w-full text-black"
               autoFocus="true"
               id="outlined-basic"
@@ -134,7 +134,7 @@ function LandingForm(props) {
             <p>{errors.recclass?.message}</p>
           </div>
           <div>
-            <label id="mass">Masa (g)</label>
+            <label id="mass">Mass (g)</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="mass"
@@ -158,7 +158,7 @@ function LandingForm(props) {
             />
           </div>
           <div>
-            <label id="year">Fecha</label>
+            <label id="year">Date</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="year"
@@ -194,7 +194,7 @@ function LandingForm(props) {
             <p>{errors.reclong?.message}</p>
           </div>
           <div>
-            <label>Latitud</label>
+            <label>Latitude</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="latitude"
@@ -204,7 +204,7 @@ function LandingForm(props) {
               name="latitude"
             />
             <p>{errors.name?.message}</p>
-            <label>Longitud</label>
+            <label>Longitude</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="longitude"
@@ -216,7 +216,7 @@ function LandingForm(props) {
             <p>{errors.name?.message}</p>
           </div>
           <div>
-            <button type="submit" className="button1 bg-black border-2 mx-4 rounded-xl p-2" >Edit Landing</button>
+            <button type="submit" className="button1 bg-black mx-4 rounded p-3 m-4" >Edit Landing</button>
           </div>
         </fieldset>
       </form> : "Loading..."}
