@@ -13,7 +13,7 @@ function List() {
   const urlApi = "https://nasa-app-api-seven.vercel.app";
 
   const [pageNumber, setPageNumber] = useState(0);//Para paginacion
-  const itemsPerPage = 5;//Numero de items a mostrar en cada pagina
+  const itemsPerPage = 10;//Numero de items a mostrar en cada pagina
   const pagesVisited = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(items.length / itemsPerPage);//Contador de paginas
   const changePage = ({ selected }) => {//componente ReactPaginate contiene un objeto llamado selected y nos dice la pagina en la que estamos

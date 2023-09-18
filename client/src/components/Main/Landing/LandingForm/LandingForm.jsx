@@ -25,6 +25,11 @@ function LandingForm(props) {
   const itemDetails = async () => {
     try {
       const { data } = await axios.get(`${urlApi}/api/astronomy/landings/?id=${searchId}`);
+     console.log("data", data[0].year);
+       //recortar fecha
+       if(data[0].year.length>4){
+        data[0].year = data[0].year.slice(0,4);
+      }
       setSearch(...data)
     } catch (error) {
       console.log(error);
@@ -57,6 +62,7 @@ function LandingForm(props) {
           longitude: data.longitude
         }
       }
+
       //Primero borramos el antiguo item de las listas
       const remainingLandings = landings.filter((item) => data.id !== item.id)//Creamos una cosntante con el listado de landings sin el que acabamos de borrar
       console.log(remainingLandings.length);
@@ -158,19 +164,19 @@ function LandingForm(props) {
             />
           </div>
           <div>
-            <label id="year">Date</label>
+            <label id="year">Year</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="year"
               variant="outlined"
               {...register("year", { required: true })}
-              type="date"
+              type="text"
               name="year"
             />
 
           </div>
           <div>
-            <label id="reclat">reclat</label>
+            <label id="reclat">Reclat</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="reclat"
@@ -182,7 +188,7 @@ function LandingForm(props) {
             <p>{errors.reclat?.message}</p>
           </div>
           <div>
-            <label id="reclong">reclong</label>
+            <label id="reclong">Reclong</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="reclong"

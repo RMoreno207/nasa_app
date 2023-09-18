@@ -12,7 +12,7 @@ function LandingList() {
   // const { items, setItems } = useContext(landingsContext);//Almacenar fetch de all landings para paginar
   const [sortName, setSortName] = useState(true); //Estado ordenar por nombre ascendente o descendente
   const [sortMass, setSortMass] = useState(false);//Estado ordenar por masa ascendente o descendente
-  const [sortDate, setSortDate] = useState(false);//Estado ordenar por fecha ascendente o descendente
+  const [sortYear, setSortYear] = useState(false);//Estado ordenar por fecha ascendente o descendente
   const byName = useRef();//useRef se usa como getElementById
   const urlApi = "https://nasa-app-api-seven.vercel.app";
   const [expanded, setExpanded]=useState(false);//Para expandir o contraer el texto de la cabecera
@@ -86,21 +86,21 @@ const toggleExpansion=()=>{
   }
 
   //Ordenar por fecha
-  function handleSortByDate() {
-    if (sortDate) {
+  function handleSortByYear() {
+    if (sortYear) {
       //Para ordenar de la Mas a menos
       const data = [...items].sort((a, b) => {
         return a.year < b.year ? 1 : -1
       })
       setItems(data);
-      setSortDate(false)
+      setSortYear(false)
     } else {
       //Para ordenar de la Menos a Mas
       const data = [...items].sort((a, b) => {
         return a.year > b.year ? 1 : -1
       })
       setItems(data);
-      setSortDate(true)
+      setSortYear(true)
     }
   }
 
@@ -151,7 +151,7 @@ const toggleExpansion=()=>{
 <div>
 <h1 className=' text-lg text-white font-bold  text-center'>Register a new Landing</h1>
       {expanded ? (
-        <form onSubmit={handleSubmit(createItem)}>
+        <form  className='max-w-xl m-auto' onSubmit={handleSubmit(createItem)}>
         <fieldset >
           <div>
             <label id="id">ID</label>
@@ -160,7 +160,7 @@ const toggleExpansion=()=>{
               label="id"
               variant="outlined"
               {...register("id", { required: true, valueAsNumber: true })}
-              type="string"
+              type="number"
               name="id"
               placeholder="2000"
             />
@@ -175,6 +175,7 @@ const toggleExpansion=()=>{
               {...register("name", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
               type="text"
               name="name"
+              placeholder='Rokamon'
 
             />
             <p>{errors.name?.message}</p>
@@ -232,14 +233,15 @@ const toggleExpansion=()=>{
             />
           </div>
           <div>
-            <label id="year">Date</label>
+            <label id="year">Year</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="year"
               variant="outlined"
               {...register("year", { required: true })}
-              type="date"
+              type="number"
               name="year"
+              placeholder='1989 '
 
             />
 
@@ -324,13 +326,13 @@ placeholder='37.41667'
       <div>
         <label htmlFor="searchMass" className='flex justify-center text-lg text-white font-bold'>Search landing by name</label>
         <div className='flex justify-center'>
-        <input className="m-auto rounded text-black" type="text" name="byName" ref={byName} placeholder="landing name" />
-        <button className="button1 bg-black mx-4 rounded p-3 m-4" type='submit' onClick={handleName}>Search landing</button>
+        <input className="my-auto mx-4 rounded text-black" type="text" name="byName" ref={byName} placeholder="landing name" />
+        <button className="button1 bg-black mx-1 rounded p-3 m-4" type='submit' onClick={handleName}>Search landing</button>
       </div>
       </div>
            <div className='flex justify-center'>
           <button className="button1 text-xs bg-black mx-1 rounded p-1 m-auto" onClick={handleSortByName}>Sort by name</button>      
-          <button className="button1 text-xs bg-black mx-1 rounded p-1 m-auto" onClick={handleSortByDate}>Sort by date</button>  
+          <button className="button1 text-xs bg-black mx-1 rounded p-1 m-auto" onClick={handleSortByYear}>Sort by year</button>  
           <button className="button1 text-xs bg-black mx-1 m-auto rounded p-1" onClick={handleSortByMass}>Sort by mass</button>
           <button className="button1 bg-black mx-4 rounded p-3 m-4" onClick={handleDeleteFilters}>Delete filters</button>
         </div>

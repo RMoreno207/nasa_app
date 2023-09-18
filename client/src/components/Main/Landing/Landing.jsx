@@ -56,34 +56,39 @@ function Landing() {
   const map = { "width": "100%", "height": "50vh" };
 
   return (<>
-    <div className=' mx-10'>
+    <div className=' mx-4 '>
       <h1 className=' text-lg text-white font-bold  text-center'>Meteorite Landings</h1>
 
-      <div>
+      <div className='m-auto max-w-xl text-justify'>
         {expanded ? (
           <p>{text}</p>
         ) : (
           <p>{text.slice(0, 100)}...</p> // Display the first 100 characters and add "..."
         )}
-      </div>
-      <button onClick={toggleExpansion}>
+        
+        <button  className='m-auto' onClick={toggleExpansion}>
         {expanded ? <b>Show Less</b> : <b>Show All</b>}
       </button>
+      </div>
+  
+      
+  
+      
 
     </div>
     <div>
       <h2 className=' text-lg text-white font-bold  text-center'>Filters</h2>
       <form className='mx-4'>
         
-        <div >
+        <div className='flex justify-center' >
         <button className="button1 bg-black mx-1 ml-4 rounded p-3 m-4" type='submit' onClick={handleMass}>Search</button>
-          <label htmlFor="searchMass" className='mx-1'>by mass</label>
-          <input className="rounded w-32 ml-1" type="text" name="byMass" ref={byMass} placeholder="2900" />
+          <label htmlFor="searchMass" className='mx-2 my-auto'>by mass</label>
+          <input className="text-black rounded w-32 my-auto mx-2" type="text" name="byMass" ref={byMass} placeholder="2900" />
         </div>
-        <div >
+        <div className='flex justify-center' >
         <button className="button1 bg-black mx-1 ml-4 rounded p-3 m-4" onClick={handleClass} > Search</button>
-          <label htmlFor="searchClass" className='mx-1'>by class</label>
-          <input className="rounded w-32 ml-1" type="text" name="byClass" ref={byClass} placeholder="L6" />
+          <label htmlFor="searchClass" className='mx-2 my-auto'>by class</label>
+          <input className="text-black rounded w-32 my-auto mx-2" type="text" name="byClass" ref={byClass} placeholder="L6" />
         </div>
         <div className='flex justify-center'>
           <button className="button1 bg-black mx-4 rounded p-3 m-4" onClick={handleDeleteFilters}>Delete filters</button>
@@ -103,13 +108,13 @@ function Landing() {
             icon={icon}>
             <Popup>Detalles:
               <ul>
-                <li>Nombre: <Link to={`/landing/detail/${data.id}`}>{data.name}</Link></li>
+                <li>Name: <Link to={`/landing/detail/${data.id}`}>{data.name}</Link></li>
                 <li>ID: {data.id}</li>
-                <li>Clase: {data.recclass}</li>
-                <li>Masa: {data.mass} kg</li>
-                <li>Fecha: {data.year}</li>
-                <li>Latitud: {data.reclat}</li>
-                <li>Longitud: {data.reclong}</li>
+                <li>Class: {data.recclass}</li>
+                <li>Mass: {data.mass} kg</li>
+                <li>Year: {data.year}</li>
+                <li>Latitude: {data.reclat}</li>
+                <li>Longitude: {data.reclong}</li>
               </ul>
             </Popup>
           </Marker>
