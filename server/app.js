@@ -11,7 +11,7 @@ app.set("port", process.env.PORT || 80);
 // CORS middleware
 app.use(
   cors({
-    origin: ["https://nasa-app-front-9lgvhuclp-rmorenodev.vercel.app"],
+    origin: ["https://nasa-app-client.vercel.app"],
     credentials: true,
   })
 );
