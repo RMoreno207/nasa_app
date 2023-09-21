@@ -116,8 +116,8 @@ const toggleExpansion=()=>{
       mass: data.mass,
       fall: data.fall,
       year: data.year,
-      reclat: data.reclat,
-      reclong: data.reclong,
+      reclat: data.latitude,
+      reclong: data.longitude,
       geolocation: {
         latitude: data.latitude,
         longitude: data.longitude
@@ -147,8 +147,7 @@ console.log(refactorData);
       {/* Valores por defecto en el formulario para facilitar la creacion */}
       {/* {setValue("latitude", "37.41667")}
       {setValue("longitude", "-6")}
-      {setValue("reclat", "37.41667")}
-      {setValue("reclong", "-6")} */}
+       */}
 
 
 <div>
@@ -198,7 +197,7 @@ console.log(refactorData);
 
           </div>
           <div>
-            <label id="recclass">Recclass</label>
+            <label id="recclass">Class</label>
             <input className="w-full text-black"
               id="outlined-basic"
               label="recclass"
@@ -249,34 +248,9 @@ console.log(refactorData);
             />
 
           </div>
+          
           <div>
-            <label id="reclat">reclat</label>
-            <input className="w-full text-black"
-              id="outlined-basic"
-              label="reclat"
-              variant="outlined"
-              {...register("reclat", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
-              type="text"
-              name="reclat"
-placeholder='37.41667'
-            />
-            <p>{errors.reclat?.message}</p>
-          </div>
-          <div>
-            <label id="reclong">reclong</label>
-            <input className="w-full text-black"
-              id="outlined-basic"
-              label="reclong"
-              variant="outlined"
-              {...register("reclong", { required: true, minLength: { value: 2, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
-              type="text"
-              name="reclong"
-placeholder='-6'
-            />
-            <p>{errors.reclong?.message}</p>
-          </div>
-          <div>
-            <label >Location</label><br></br>
+          
             <label>Latitude</label>
             <input className="w-full text-black"
               id="outlined-basic"
@@ -301,8 +275,7 @@ placeholder='37.41667'
             <p>{errors.name?.message}</p>
 
           </div>
-
-
+        
           <div>
             <button type="submit" className="button1 bg-black mx-4 rounded p-3 m-4">Create</button>
           </div>

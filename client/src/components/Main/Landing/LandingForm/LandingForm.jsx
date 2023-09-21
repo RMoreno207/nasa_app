@@ -55,8 +55,8 @@ function LandingForm(props) {
         mass: data.mass,
         fall: data.fall,
         year: data.year,
-        reclat: data.reclat,
-        reclong: data.reclong,
+        reclat: data.latitude,
+        reclong: data.longitude,
         geolocation: {
           latitude: data.latitude,
           longitude: data.longitude
@@ -85,13 +85,11 @@ function LandingForm(props) {
       {search ? setValue("mass", search.mass) : null}
       {search ? setValue("name", search.name) : null}
       {search ? setValue("recclass", search.recclass) : null}
-      {search ? setValue("reclat", search.reclat) : null}
-      {search ? setValue("reclong", search.reclong) : null}
       {search ? setValue("year", search.year) : null}
 
       {search ? <form onSubmit={handleSubmit(editItem)}>
       <h1 className=' text-lg text-white font-bold  text-center'>Landing edition</h1>
-      <p className="text-center">The landing is edited only in the local list</p>
+      {/* <p className="text-center">The landing is edited only in the local list</p> */}
         <fieldset className="mx-4" >
           <div>
             <input
@@ -176,30 +174,7 @@ function LandingForm(props) {
             />
 
           </div>
-          <div>
-            <label id="reclat">Reclat</label>
-            <input className="w-full text-black"
-              id="outlined-basic"
-              label="reclat"
-              variant="outlined"
-              {...register("reclat", { required: true, minLength: { value: 2, message: "Debe de tener más de 1 carácter" } })}
-              type="text"
-              name="reclat"
-            />
-            <p>{errors.reclat?.message}</p>
-          </div>
-          <div>
-            <label id="reclong">Reclong</label>
-            <input className="w-full text-black"
-              id="outlined-basic"
-              label="reclong"
-              variant="outlined"
-              {...register("reclong", { required: true, minLength: { value: 2, message: "Debe de tener más de 1 carácter" } })}
-              type="text"
-              name="reclong"
-            />
-            <p>{errors.reclong?.message}</p>
-          </div>
+          
           <div>
             <label>Latitude</label>
             <input className="w-full text-black"
