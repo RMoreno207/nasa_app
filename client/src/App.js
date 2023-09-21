@@ -27,16 +27,18 @@ function App() {
 
   //Obtener el APOD
   const getApod = async () => {
-    try {
-      const { data } = await axios.get(url + apiKey); //fetch a API NASA para obtener el APOD
-      const dataFilter = {
-        url: data.hdurl,
-        title: data.title,
-        explanation: data.explanation,
-      };
-      setApod(dataFilter);
-    } catch (error) {
-      console.log(error);
+    if (!apod) {
+      try {
+        const { data } = await axios.get(url + apiKey); //fetch a API NASA para obtener el APOD
+        const dataFilter = {
+          url: data.hdurl,
+          title: data.title,
+          explanation: data.explanation,
+        };
+        setApod(dataFilter);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
