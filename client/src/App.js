@@ -18,27 +18,22 @@ function App() {
   const urlApi = "https://nasa-app-api-seven.vercel.app";
 
   useEffect(() => {
-    getApod();
-  });
-
-  useEffect(() => {
     getLandings();
   }, [filter]);
 
   //Obtener el APOD
   const getApod = async () => {
-    if (!apod) {
-      try {
-        const { data } = await axios.get(url + apiKey); //fetch a API NASA para obtener el APOD
-        const dataFilter = {
-          url: data.hdurl,
-          title: data.title,
-          explanation: data.explanation,
-        };
-        setApod(dataFilter);
-      } catch (error) {
-        console.log(error);
-      }
+    try {
+      const { data } = await axios.get(url + apiKey); //fetch a API NASA para obtener el APOD
+      const dataFilter = {
+        url: data.hdurl,
+        title: data.title,
+        explanation: data.explanation,
+      };
+      setApod(dataFilter);
+      console.log("Apod descargado");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -66,6 +61,7 @@ function App() {
     apod,
     setApod,
     getLandings,
+    getApod,
   };
 
   return (

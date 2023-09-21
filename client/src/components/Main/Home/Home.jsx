@@ -6,12 +6,18 @@ import { useState} from "react";
 
 
 function Home() {
-  const { apod } = useContext(landingsContext); //Traer la url del APOD
+  const { apod, getApod } = useContext(landingsContext); //Traer la url del APOD
   const [expanded, setExpanded]=useState(false);
 
   const toggleExpansion=()=>{
     setExpanded(!expanded);
   }
+
+  useEffect(() => {
+
+      getApod();
+    
+  },[]);
 
   const text = apod && apod.explanation ? apod.explanation : '';
 
