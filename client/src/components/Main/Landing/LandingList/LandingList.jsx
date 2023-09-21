@@ -15,6 +15,7 @@ function LandingList() {
   const [sortYear, setSortYear] = useState(false);//Estado ordenar por fecha ascendente o descendente
   const byName = useRef();//useRef se usa como getElementById
   const urlApi = "https://nasa-app-api-seven.vercel.app";
+  // const urlApi = "http://localhost:5000";
   const [expanded, setExpanded]=useState(false);//Para expandir o contraer el texto de la cabecera
 
 
@@ -124,6 +125,8 @@ const toggleExpansion=()=>{
     }
     try {
       await axios.post(`${urlApi}/api/astronomy/landings/create`, refactorData)
+console.log(refactorData);
+
       setLandings([...landings, refactorData])
       setItems([...items, refactorData])
       alert("Landing creado con exito!")
@@ -160,7 +163,7 @@ const toggleExpansion=()=>{
               label="id"
               variant="outlined"
               {...register("id", { required: true, valueAsNumber: true })}
-              type="number"
+              type="text"
               name="id"
               placeholder="2000"
             />
@@ -214,7 +217,7 @@ const toggleExpansion=()=>{
               label="mass"
               variant="outlined"
               {...register("mass", { required: true, minLength: { value: 1, message: "El nombre del nuevo Pokemon debe ser mayor de 2 caracteres." } })}
-              type="number"
+              type="text"
               name="mass"
               placeholder="2000"
             />
@@ -239,7 +242,7 @@ const toggleExpansion=()=>{
               label="year"
               variant="outlined"
               {...register("year", { required: true })}
-              type="number"
+              type="text"
               name="year"
               placeholder='1989 '
 

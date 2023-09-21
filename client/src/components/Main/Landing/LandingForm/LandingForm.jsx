@@ -25,8 +25,8 @@ function LandingForm(props) {
   const itemDetails = async () => {
     try {
       const { data } = await axios.get(`${urlApi}/api/astronomy/landings/?id=${searchId}`);
-     console.log("data", data[0].year);
-       //recortar fecha
+
+      //recortar fecha
        if(data[0].year.length>4){
         data[0].year = data[0].year.slice(0,4);
       }
@@ -91,6 +91,7 @@ function LandingForm(props) {
 
       {search ? <form onSubmit={handleSubmit(editItem)}>
       <h1 className=' text-lg text-white font-bold  text-center'>Landing edition</h1>
+      <p className="text-center">The landing is edited only in the local list</p>
         <fieldset className="mx-4" >
           <div>
             <input
@@ -146,7 +147,7 @@ function LandingForm(props) {
               label="mass"
               variant="outlined"
               {...register("mass", { required: true, minLength: { value: 1, message: "Debe de tener más de 1 carácter" } })}
-              type="number"
+              type="text"
               name="mass"
             />
             <p>{errors.mass?.message}</p>
