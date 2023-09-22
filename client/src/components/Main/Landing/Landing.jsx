@@ -34,7 +34,7 @@ function Landing() {
   //Filter mass
   const handleMass = () => {
     const parameter = byMass.current.value;
-    if (parameter) {
+    if (parameter !== "") {
       setFilter(`mass/${parameter}`);
     }
     byMass.current.value = "";
@@ -43,7 +43,7 @@ function Landing() {
   //Filter class
   const handleClass = () => {
     const parameter = byClass.current.value;
-    if (parameter) {
+    if (parameter !== "") {
       setFilter(`class/${parameter}`);
     }
 
