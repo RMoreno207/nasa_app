@@ -50,7 +50,10 @@ const getLandingByMass = async (mass) => {
 
 const getLandingByClass = async (byClass) => {
   try {
-    const getLandingByClass = await landingSchema.find({ recclass: byClass });
+    const regex = new RegExp(byClass, "i");
+    const getLandingByClass = await landingSchema.find({
+      recclass: { $regex: regex },
+    });
     console.log(getLandingByClass);
     return getLandingByClass;
   } catch (error) {

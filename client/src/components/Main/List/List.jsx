@@ -10,7 +10,7 @@ import axios from 'axios';
 function List() {
   const { landings, setLandings } = useContext(landingsContext);//Almacenar fetch de all landings
   const { items, setItems } = useContext(landingsContext);//Recoge los datos a mostrar
-  const urlApi = "https://nasa-app-api-seven.vercel.app";
+  const { urlApi } = useContext(landingsContext);
 
   const [pageNumber, setPageNumber] = useState(0);//Para paginacion
   const itemsPerPage = 10;//Numero de items a mostrar en cada pagina

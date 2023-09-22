@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";//Para capturar el parametro ID pasado por los parametros del router
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { landingsContext } from '../../../../context/landingsContext'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -10,8 +11,7 @@ function Detail() {
   const params = useParams();// Para poder usar los parametros capturados por el router
   const [search, setSearch] = useState();
   const [searchId] = useState(params.id);//Creo variable de estado local para almacenar la ID
-  const urlApi = "https://nasa-app-api-seven.vercel.app";
-
+  const { urlApi } = useContext(landingsContext);
 
   useEffect(() => {
     itemDetails()//Lanzamos la busqueda

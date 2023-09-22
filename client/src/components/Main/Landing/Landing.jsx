@@ -34,18 +34,17 @@ function Landing() {
   }
 
   //Filter mass
-  const handleMass = (e) => {
-    e.preventDefault();
-    console.log(e);
+  const handleMass = () => {
     const parameter = byMass.current.value;
     setFilter(`mass/${parameter}`);
+    byMass.current.value="";
   }
 
   //Filter class
-  const handleClass = (e) => {
-    e.preventDefault();
+  const handleClass = () => {
     const parameter = byClass.current.value;
     setFilter(`class/${parameter}`);
+    byClass.current.value="";
   }
 
   var icon = new L.Icon({
@@ -78,22 +77,32 @@ function Landing() {
     </div>
     <div>
       <h2 className=' text-lg text-white font-bold  text-center'>Filters</h2>
-      <form className='mx-4'>
+      <div className='mx-4'>
         
-        <div className='flex justify-center' >
+      <div className='flex justify-center' >
         <button className="button1 bg-black mx-1 ml-4 rounded p-3 m-4" type='submit' onClick={handleMass}>Search</button>
           <label htmlFor="searchMass" className='mx-2 my-auto'>by mass</label>
-          <input className="text-black rounded w-32 my-auto mx-2" type="text" name="byMass" ref={byMass} placeholder="2900" />
+          <input className="text-black rounded w-32 my-auto mx-2" type="text" name="byMass" ref={byMass} placeholder="2900" onKeyDown={(e)=>{
+            if(e.key=="Enter"){
+              handleMass();
+            }
+          }}/>
         </div>
+
         <div className='flex justify-center' >
-        <button className="button1 bg-black mx-1 ml-4 rounded p-3 m-4" onClick={handleClass} > Search</button>
+        <button className="button1 bg-black mx-1 ml-4 rounded p-3 m-4"  onClick={handleClass}>Search</button>
           <label htmlFor="searchClass" className='mx-2 my-auto'>by class</label>
-          <input className="text-black rounded w-32 my-auto mx-2" type="text" name="byClass" ref={byClass} placeholder="L6" />
+          <input className="text-black rounded w-32 my-auto mx-2" type="text" name="byClass" ref={byClass} placeholder="L6" onKeyDown={(e)=>{
+            if(e.key=="Enter"){
+              handleClass();
+            }
+          }}/>
         </div>
+
         <div className='flex justify-center'>
           <button className="button1 bg-black mx-4 rounded p-3 m-4" onClick={handleDeleteFilters}>Delete filters</button>
         </div>
-      </form>
+      </div>
     </div >
     <div>
       <MapContainer style={map} center={[51.505, -0.09]} zoom={1} scrollWheelZoom={true}>

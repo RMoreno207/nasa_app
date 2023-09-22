@@ -15,7 +15,7 @@ function LandingForm(props) {
   const [search, setSearch] = useState();//Almacena los detalles del landing
   const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate();
-  const urlApi = "https://nasa-app-api-seven.vercel.app";
+  const { urlApi } = useContext(landingsContext);
 
   function toRedirect() {
     navigate('/landing/list');
