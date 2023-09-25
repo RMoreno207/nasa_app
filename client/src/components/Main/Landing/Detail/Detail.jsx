@@ -1,39 +1,39 @@
-import { useParams, Link } from "react-router-dom";//Para capturar el parametro ID pasado por los parametros del router
+import { useParams, Link } from "react-router-dom"; //Para capturar el parametro ID pasado por los parametros del router
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { landingsContext } from '../../../../context/landingsContext'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-
+import { landingsContext } from "../../../../context/landingsContext";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 function Detail() {
-  const params = useParams();// Para poder usar los parametros capturados por el router
+  const params = useParams(); // Para poder usar los parametros capturados por el router
   const [search, setSearch] = useState();
-  const [searchId] = useState(params.id);//Creo variable de estado local para almacenar la ID
+  const [searchId] = useState(params.id); //Creo variable de estado local para almacenar la ID
   const { urlApi } = useContext(landingsContext);
 
   useEffect(() => {
-    itemDetails()//Lanzamos la busqueda
-  }, []
-  );
+    itemDetails(); //Lanzamos la busqueda
+  }, []);
 
   var icon = new L.Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/2049/2049726.png',
+    iconUrl: "https://cdn-icons-png.flaticon.com/512/2049/2049726.png",
     iconSize: [30, 30],
-    iconAnchor: null
+    iconAnchor: null,
   });
-  const map = { "width": "100%", "height": "50vh" };
+  const map = { width: "100%", height: "50vh" };
 
   //Obtener los detalles del landing
   const itemDetails = async () => {
     try {
-      const { data } = await axios.get(`${urlApi}/api/astronomy/landings/?id=${searchId}`);
-      setSearch(...data)
+      const { data } = await axios.get(
+        `${urlApi}/api/astronomy/landings/?id=${searchId}`
+      );
+      setSearch(...data);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <article className="list-none mx-4">
@@ -47,18 +47,33 @@ function Detail() {
       <li>Longitude: {search ? search.geolocation.longitude : "..."}</li>
       <li>Latitude: {search ? search.geolocation.latitude : "..."}</li>
 
-      <Link to={'/landing/list'}><button className="button1 bg-black mx-4 rounded p-3 m-4">Volver</button></Link>
+      <button
+        className="button1 bg-black mx-4 rounded p-3 m-4"
+        onClick={() => window.history.back()}
+      >
+        Volver
+      </button>
       <div>
-        <MapContainer style={map} center={[51.505, -0.09]} zoom={1} scrollWheelZoom={true}>
+        <MapContainer
+          style={map}
+          center={[51.505, -0.09]}
+          zoom={1}
+          scrollWheelZoom={true}
+        >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {search ?
+          {search ? (
             <Marker
-              position={[search.geolocation.latitude, search.geolocation.longitude]}
-              icon={icon}>
-              <Popup>Detalles:
+              position={[
+                search.geolocation.latitude,
+                search.geolocation.longitude,
+              ]}
+              icon={icon}
+            >
+              <Popup>
+                Detalles:
                 <ul>
                   <li>Nombre: {search.name}</li>
                   <li>ID: {search.id}</li>
@@ -70,12 +85,11 @@ function Detail() {
                 </ul>
               </Popup>
             </Marker>
-            : null}
+          ) : null}
         </MapContainer>
       </div>
     </article>
-  )
+  );
 }
 
-
-export default Detail
+export default Detail;

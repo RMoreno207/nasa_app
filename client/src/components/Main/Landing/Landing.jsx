@@ -138,11 +138,11 @@ function Landing() {
           </div>
         </div>
       </div>
-      <div>
+      <div className="max-w-xl mx-4 md:mx-auto text-justify">
         <MapContainer
           style={map}
           center={[51.505, -0.09]}
-          zoom={1}
+          zoom={1.5}
           scrollWheelZoom={true}
         >
           <TileLayer

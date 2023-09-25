@@ -419,11 +419,13 @@ function LandingList() {
           Delete filters
         </button>
       </div>
-      <h1 className=" text-lg text-white font-bold  text-center m-4">
-        Landing list
-      </h1>
-      {/* Renderizamos el componente List si el estado de landings no esta vacio */}
-      {landings.length > 0 ? <List /> : "Loading..."}
+      <div className="m-auto max-w-xl text-justify">
+        <h1 className=" text-lg text-white font-bold  text-center m-4">
+          Landing list
+        </h1>
+        {/* Renderizamos el componente List si el estado de landings no esta vacio */}
+        {landings.length > 0 ? <List /> : "Loading..."}
+      </div>
     </div>
   );
 }
