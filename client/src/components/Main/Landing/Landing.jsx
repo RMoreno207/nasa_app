@@ -160,7 +160,6 @@ function Landing() {
                 icon={icon}
               >
                 <Popup>
-                  Detalles:
                   <ul>
                     <li>
                       Name:{" "}
