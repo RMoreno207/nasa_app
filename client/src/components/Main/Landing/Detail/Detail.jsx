@@ -58,7 +58,7 @@ function Detail() {
       <div className="max-w-xl mx-4 md:mx-auto text-justify">
         <MapContainer
           style={map}
-          center={[51.505, -0.09]}
+          center={[search.reclat, search.reclong]}
           zoom={1.5}
           scrollWheelZoom={true}
         >
@@ -77,13 +77,16 @@ function Detail() {
               <Popup>
                 Detalles:
                 <ul>
-                  <li>Nombre: {search.name}</li>
+                  <li>
+                    Name:
+                    {search.name}
+                  </li>
                   <li>ID: {search.id}</li>
-                  <li>Clase: {search.recclass}</li>
-                  <li>Masa: {search.mass} kg</li>
-                  <li>Fecha: {search.year}</li>
-                  <li>Latitud: {search.reclat}</li>
-                  <li>Longitud: {search.reclong}</li>
+                  <li>Class: {search.recclass}</li>
+                  <li>Mass: {search.mass} kg</li>
+                  <li>Year: {search.year ? search.year.slice(0, 4) : null}</li>
+                  <li>Latitude: {search.reclat}</li>
+                  <li>Longitude: {search.reclong}</li>
                 </ul>
               </Popup>
             </Marker>

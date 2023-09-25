@@ -169,7 +169,7 @@ function Landing() {
                     <li>ID: {data.id}</li>
                     <li>Class: {data.recclass}</li>
                     <li>Mass: {data.mass} kg</li>
-                    <li>Year: {data.year}</li>
+                    <li>Year: {data.year ? data.year.slice(0, 4) : null}</li>
                     <li>Latitude: {data.reclat}</li>
                     <li>Longitude: {data.reclong}</li>
                   </ul>
