@@ -36,28 +36,30 @@ function Detail() {
   };
 
   return (
-    <article className="list-none mx-4">
-      <h1 className=" text-xl">{search ? search.name : "..."}</h1>
-      <li>ID: {search ? search.id : "..."}</li>
-      <li>Mass: {search ? search.mass : "..."}</li>
-      <li>Recclass: {search ? search.recclass : "..."}</li>
-      <li>Reclat: {search ? search.reclat : "..."}</li>
-      <li>Reclong: {search ? search.reclong : "..."}</li>
-      <li>Date: {search ? search.year : "..."}</li>
-      <li>Longitude: {search ? search.geolocation.longitude : "..."}</li>
-      <li>Latitude: {search ? search.geolocation.latitude : "..."}</li>
+    <article>
+      <div className="list-none max-w-xl m-auto">
+        <h1 className=" text-xl">{search ? search.name : "..."}</h1>
+        <li>ID: {search ? search.id : "..."}</li>
+        <li>Mass: {search ? search.mass : "..."}</li>
+        <li>Recclass: {search ? search.recclass : "..."}</li>
+        <li>Reclat: {search ? search.reclat : "..."}</li>
+        <li>Reclong: {search ? search.reclong : "..."}</li>
+        <li>Date: {search ? search.year : "..."}</li>
+        <li>Longitude: {search ? search.geolocation.longitude : "..."}</li>
+        <li>Latitude: {search ? search.geolocation.latitude : "..."}</li>
 
-      <button
-        className="button1 bg-black mx-4 rounded p-3 m-4"
-        onClick={() => window.history.back()}
-      >
-        Volver
-      </button>
-      <div>
+        <button
+          className="button1 bg-black mx-4 rounded p-3 m-4"
+          onClick={() => window.history.back()}
+        >
+          Volver
+        </button>
+      </div>
+      <div className="max-w-xl mx-4 md:mx-auto text-justify">
         <MapContainer
           style={map}
           center={[51.505, -0.09]}
-          zoom={1}
+          zoom={1.5}
           scrollWheelZoom={true}
         >
           <TileLayer

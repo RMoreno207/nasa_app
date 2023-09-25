@@ -34,7 +34,7 @@ function List() {
 
   return (
     <section>
-      <div className="m-auto max-w-xl text-justify">
+      <div className="m-auto max-w-xl text-justify list-none">
         {/* Mandamos lalista de items paginada si no esta vacia */}
         {items.length > 0
           ? items
