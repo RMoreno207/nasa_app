@@ -35,6 +35,7 @@ function Detail() {
     }
   };
 
+  console.log(parseInt(search.reclat), parseInt(search.reclong));
   return (
     <article>
       <div className="list-none max-w-xl m-auto">
