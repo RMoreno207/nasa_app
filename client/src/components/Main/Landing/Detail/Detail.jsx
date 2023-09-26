@@ -34,10 +34,7 @@ function Detail() {
       console.log(error);
     }
   };
-  console.log(search ? search.reclat : "no carga lat");
-  console.log(search ? search.reclong : "no carga long");
-  console.log(search ? parseFloat(search.reclat) : "no carga lat");
-  console.log(search ? parseFloat(search.reclong) : "no carga long");
+
   return (
     <article>
       <div className="list-none max-w-xl m-auto">
@@ -57,21 +54,18 @@ function Detail() {
         </button>
       </div>
       <div className="max-w-xl mx-4 md:mx-auto text-justify">
-        <MapContainer
-          style={map}
-          center={
-            search
-              ? [parseFloat(search.reclat), parseFloat(search.reclong)]
-              : null
-          }
-          zoom={1.5}
-          scrollWheelZoom={true}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {search ? (
+        {search ? (
+          <MapContainer
+            style={map}
+            center={[search.geolocation.latitude, search.geolocation.longitude]}
+            zoom={1.5}
+            scrollWheelZoom={true}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+
             <Marker
               position={[
                 search.geolocation.latitude,
@@ -91,8 +85,8 @@ function Detail() {
                 </ul>
               </Popup>
             </Marker>
-          ) : null}
-        </MapContainer>
+          </MapContainer>
+        ) : null}
       </div>
     </article>
   );

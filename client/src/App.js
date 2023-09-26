@@ -15,8 +15,8 @@ function App() {
 
   const url = "https://api.nasa.gov/planetary/apod?api_key="; //URL del fetch para obtener el APOD
   const apiKey = process.env.REACT_APP_API_KEY;
-  const urlApi = "https://nasa-app-api-seven.vercel.app";
-  // const urlApi = "http://localhost:5000";
+  // const urlApi = "https://nasa-app-api-seven.vercel.app";
+  const urlApi = "http://localhost:5000";
 
   useEffect(() => {
     getLandings();
