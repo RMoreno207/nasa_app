@@ -56,7 +56,7 @@ function Detail() {
       <div className="max-w-xl mx-4 md:mx-auto text-justify">
         <MapContainer
           style={map}
-          center={search ? search.year.slice(0, 4) : [51.505, -0.09]}
+          center={search ? [search.reclat, search.reclong] : [51.505, -0.09]}
           // Centrar en las coordenadas del landing
 
           zoom={1.5}
@@ -75,7 +75,6 @@ function Detail() {
               icon={icon}
             >
               <Popup>
-                {/* cambiar por el del otro mapa */}
                 <ul>
                   <li>Name: {search.name}</li>
                   <li>ID: {search.id}</li>
