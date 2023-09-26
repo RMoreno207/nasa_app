@@ -42,9 +42,7 @@ function Detail() {
         <li>ID: {search ? search.id : "..."}</li>
         <li>Mass: {search ? search.mass : "..."}</li>
         <li>Recclass: {search ? search.recclass : "..."}</li>
-        <li>Reclat: {search ? search.reclat : "..."}</li>
-        <li>Reclong: {search ? search.reclong : "..."}</li>
-        <li>Date: {search ? search.year : "..."}</li>
+        <li>Year: {search ? search.year.slice(0, 4) : "..."}</li>
         <li>Longitude: {search ? search.geolocation.longitude : "..."}</li>
         <li>Latitude: {search ? search.geolocation.latitude : "..."}</li>
 
@@ -58,7 +56,7 @@ function Detail() {
       <div className="max-w-xl mx-4 md:mx-auto text-justify">
         <MapContainer
           style={map}
-          center={[51.505, -0.09]}
+          center={search.year ? search.year.slice(0, 4) : [51.505, -0.09]}
           // Centrar en las coordenadas del landing
 
           zoom={1.5}
