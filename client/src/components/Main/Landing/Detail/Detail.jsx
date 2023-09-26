@@ -34,8 +34,8 @@ function Detail() {
       console.log(error);
     }
   };
-
-  console.log(parseInt(search.reclat), parseInt(search.reclong));
+  console.log(search ? parseInt(search.reclat) : "no carga lat");
+  console.log(search ? parseInt(search.reclong) : "no carga long");
   return (
     <article>
       <div className="list-none max-w-xl m-auto">
