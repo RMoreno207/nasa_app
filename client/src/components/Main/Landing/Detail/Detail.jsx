@@ -46,8 +46,8 @@ function Detail() {
         <li>Mass: {search ? search.mass : "..."}</li>
         <li>Recclass: {search ? search.recclass : "..."}</li>
         <li>Year: {search ? search.year.slice(0, 4) : "..."}</li>
-        <li>Longitude: {search ? search.geolocation.longitude : "..."}</li>
         <li>Latitude: {search ? search.geolocation.latitude : "..."}</li>
+        <li>Longitude: {search ? search.geolocation.longitude : "..."}</li>
 
         <button
           className="button1 bg-black mx-4 rounded p-3 m-4"
@@ -60,7 +60,9 @@ function Detail() {
         <MapContainer
           style={map}
           center={
-            search ? [parseInt(search.reclat), parseInt(search.reclong)] : null
+            search
+              ? [parseFloat(search.reclat), parseFloat(search.reclong)]
+              : null
           }
           zoom={1.5}
           scrollWheelZoom={true}
