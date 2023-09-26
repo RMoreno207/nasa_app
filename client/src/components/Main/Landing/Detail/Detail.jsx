@@ -56,7 +56,7 @@ function Detail() {
       <div className="max-w-xl mx-4 md:mx-auto text-justify">
         <MapContainer
           style={map}
-          center={search ? [search.reclat, search.reclong] : [51.505, -0.09]}
+          center={search ? [search.reclat, search.reclong] : null}
           // Centrar en las coordenadas del landing
 
           zoom={1.5}
